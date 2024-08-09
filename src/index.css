@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.background-footer{
+  background-color: rgb(25, 27, 29);
+  text-align: left;
+}
+.color-contact{
+  color: white !important;
+}
+ .flip-card {
+  perspective: 1000px;
+  width: 100%;
+  height: 300px;
+} 
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* .flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+.swiper-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+.card-footer-back,.card-footer-front{
+  cursor: pointer;
+}
+.format-cart{
+  width: 100%;
+  height: 100%;
+}
+.format-input-custom{
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.25) !important;
+}
+.background-header-main{
+  background-color: #fff !important;
+}
+.table-question-column {
+  width: 15%;
+  word-wrap: break-word; /* Cho phép từ ngắt dòng khi vượt quá chiều rộng cột */
+  white-space: normal; /* Cho phép ngắt dòng */
+}
+
+.table-answer-column {
+  width: 10%;
+}
+
+.table-image-column {
+  width: 15%;
+}
+
+.table-action-column {
+  width: 10%;
+}

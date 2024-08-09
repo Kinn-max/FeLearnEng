@@ -1,25 +1,64 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import Header from './layouts/web/Header';
+import Footer from './layouts/web/Footer';
+import CommonHome from './pages/web/CommonHome';
+import AboutUs from './pages/web/AboutUs';
+import Study from './pages/web/Study';
+import Course from './pages/web/Course';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Grammar from './pages/web/Grammar';
+import DetailGrammar from "./components/web/details/DetailGrammar";
+import DetailCourse from "./pages/web/DetailCourse";
+import DetailVocabulary from "./components/web/details/DetailVocabulary";
+import DetailVocabularyPractice from "./components/web/details/DetailVocabularyPractice";
+import DetailParagraph from "./components/web/details/DetailParagraph";
+import Exam from "./pages/web/Exam";
+//
+import AdminHome from "./pages/admin/AdminHome";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Content />
+      </BrowserRouter>
     </div>
   );
+}
+
+function Content() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isRegisterRoute = location.pathname === '/register';
+  const isLoginRoute = location.pathname === '/login';
+
+  return (
+    <>
+      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute) && <Header />}
+      <Routes>
+        <Route path="/" element={<CommonHome />} />
+        <Route path="/home" element={<CommonHome />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/study" element={<Study />} />
+        <Route path="/course" element={<Course />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/grammar" element={<Grammar />} />
+        <Route path="/grammar/detail" element={<DetailGrammar />} />
+        <Route path="/course/detail" element={<DetailCourse />} />
+        <Route path="/study/study-vocabulary" element={<DetailVocabulary />} />
+        <Route path="/study/practice-vocabulary" element={<DetailVocabularyPractice />} />
+        <Route path="/study/paragraph-practice" element={<DetailParagraph />} />
+        <Route path="/study/exam" element={<Exam />} />
+      </Routes>
+      <Routes>
+        <Route path="/admin/*" element={<AdminHome />} />
+      </Routes>
+      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute) && <Footer />}
+    </>
+  )
 }
 
 export default App;
