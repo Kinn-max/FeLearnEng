@@ -1,105 +1,263 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { deleteCategory, getAllItemOfCategory, getCategoryById, postCategory, statusCategory, updateCategory } from '../../api/CategoryApi';
+import ShowNotification from '../../Utils/Notification';
 
 export default function Topic() {
-    const [formAddTopic,setFormAddTopic] = useState(false)
-    const handleForm = ()=>{
-        setFormAddTopic(!formAddTopic)
+    const [formAddTopic, setFormAddTopic] = useState(false);
+    const [topic, setTopic] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [id, setId] = useState(null);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [image, setImage] = useState(null);
+    const [reload, setReload] = useState(false);
+
+    const handleForm = () => {
+        setFormAddTopic(!formAddTopic);
+    };
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const data = await getAllItemOfCategory("vocabulary");
+                if (data) {
+                    setTopic(data);
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, [reload]);
+
+    if (loading) {
+        return <div className="text-center mt-5">Loading...</div>; 
     }
+
+    const handleImage = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    };
+
+    const getBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result ? reader.result.split(',')[1] : null);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+    //status
+    const handleCheckboxChange = async (id) => {
+        try {
+            await statusCategory(id);  
+            setReload(prev => !prev);    
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+    //submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let base64Image = null;
+        if (image instanceof File) {
+            base64Image = await getBase64(image);
+        }
+        const data = {
+            id: id,
+            name_category: name,
+            description: description,
+            code_name: "VOCABULARY",
+            image: base64Image
+        };
+
+        try {
+            let response;
+            if (id == null) {
+                response = await postCategory(data);
+            } else {
+                response = await updateCategory(data, id);
+            }
+            if (Array.isArray(response.message)) {
+                let messageError = "";
+                response.message.forEach((error, index) => {
+                    messageError += `${error}${index < response.message.length - 1 ? ', ' : ''}`;
+                });
+                ShowNotification("error", "Lỗi thiếu dữ liệu", messageError);                
+            } else {
+                setReload(prev => !prev); 
+                setName("");
+                setDescription("");
+                setId(null);
+                setImage(null);
+                ShowNotification("success", "Thành công", "Đã thêm/cập nhật chủ đề thành công");
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+    //delete
+    const handleDelete = async (id) => {
+        try {
+            await deleteCategory(id);  
+            setReload(prev => !prev);    
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+    //edit
+    const handleEdit = async (id) => {
+        try {
+            const response = await getCategoryById(id);  
+            setName(response.name);
+            setDescription(response.description);
+            setId(response.id);
+            setImage(response.image)
+            setFormAddTopic(true);
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+
     return (
-        <div class="card custom-card">
-                <div class="card-header px-5 pt-5 pb-3 justify-content-between">
-                    <div class="card-title">
-                    Danh sách chủ đề từ vựng
-                    </div>
-                    <div class="card-title d-flex">
-                        <button type="button" title='Thêm topic mới' class="btn btn-outline-primary rounded-pill btn-wave waves-effect waves-light"
-                        onClick={()=>handleForm()}>
-                            <i class="bx bx-plus fs-6"></i>
-                        </button>
-                    </div>
+        <div className="card custom-card">
+            <div className="card-header px-5 pt-5 pb-3 justify-content-between">
+                <div className="card-title">Danh sách chủ đề từ vựng</div>
+                <div className="card-title d-flex">
+                    <button
+                        type="button"
+                        title="Thêm topic mới"
+                        className="btn btn-outline-primary rounded-pill btn-wave waves-effect waves-light"
+                        onClick={handleForm}
+                    >
+                        <i className="bx bx-plus fs-6"></i>
+                    </button>
                 </div>
-                {formAddTopic && (
-                     <div className='mx-4 p-3 border border-dark border-opacity-50 rounded' id='formAddTopic'>
-                        <form>
-                            <div className="row">
-                                <div className="mb-3 col-xl-6">
+            </div>
+            {formAddTopic && (
+                <div className="mx-4 p-3 border border-dark border-opacity-50 rounded" id="formAddTopic">
+                    <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="mb-3 col-xl-6">
                                 <label htmlFor="english-name" className="form-label fs-14 text-dark">Tên chủ đề</label>
-                                <input type="text" className="form-control border border-dark border-opacity-25" id="english-name" placeholder="Enter here!" />
-                                </div>
-                                <div className="mb-3 col-xl-6">
-                                <label htmlFor="vietnamese-name" className="form-label fs-14 text-dark ">Mô tả</label>
-                                <input type="text" className="form-control border border-dark border-opacity-25 " id="vietnamese-name" placeholder="Enter here" />
-                                </div>
-                                <div className="d-flex justify-content-center">
-                                <button className="btn btn-primary" type="submit">Thêm mới</button>
-                                </div>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    className="form-control border border-dark border-opacity-25" 
+                                    id="english-name" 
+                                    placeholder="Enter here!" 
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)} 
+                                />
                             </div>
-                        </form>
-                 </div>
-                )}
-               
-                <div class="card-body text-start">
-                    <div class="table-responsive">
-                        <table class="table text-nowrap">
-                            <thead class="table-primary">
-                                <tr>
-                                    <th>Stt</th>
-                                    <th scope="col">Tên chủ đề</th>
-                                    <th scope="col">Ngày tạo</th>
-                                    <th scope="col">Số từ vựng</th>
-                                    <th scope="col">Mô tả</th>
-                                    <th scope="col" >Trạng thái</th>
-                                    <th scope="col">Tùy chỉnh</th>
-                                </tr>
-                            </thead>
-                            <tbody >
-                                <tr>
-                                    <td>1</td>
-                                    <td>Music</td>
-                                    <td>10-9-2024</td>
-                                    <td>13</td>
-                                    <td>Đây là từ vựng giúp bạn hiểu rõ về âm nhạc</td>
-                                    <td className='text-start'>
-                                        <label class="form-switch float-end mb-0">
-                                            <a href="javascript:void(0);" class="fs-14 mb-0 me-2 text-primary">Hiện/Ẩn</a>
-                                            <input type="checkbox" name="form-switch-checkbox3" class="form-switch-input"/>
-                                            <span class="form-switch-indicator custom-radius"></span>
+                            <div className="mb-3 col-xl-6">
+                                <label htmlFor="image-upload" className="form-label fs-14 text-dark">Ảnh</label>
+                                <input 
+                                    type="file" 
+                                    className="form-control border border-dark border-opacity-25" 
+                                    id="image-upload" 
+                                    placeholder="Enter here!" 
+                                    onChange={handleImage}
+                                />
+                            </div>
+                            <div className="mb-3 col-xl-6">
+                                <label htmlFor="description" className="form-label fs-14 text-dark">Mô tả</label>
+                                <textarea 
+                                    type="text" 
+                                    className="form-control border border-dark border-opacity-25" 
+                                    id="description" 
+                                    placeholder="Enter here" 
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)} 
+                                />
+                            </div>
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-primary" type="submit">Thêm mới</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            )}
+            <div className="card-body text-start">
+                <div className="table-responsive">
+                    <table className="table text-nowrap">
+                        <thead className="table-primary">
+                            <tr>
+                                <th>Stt</th>
+                                <th>Ảnh</th>
+                                <th scope="col">Tên chủ đề</th>
+                                <th scope="col">Ngày tạo</th>
+                                <th scope="col">Số từ vựng</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Tùy chỉnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {topic.map((item, index) => (
+                                <tr key={item.id}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        <img 
+                                            style={{ width: "100px" }} 
+                                            src={`data:image/jpeg;base64,${item.image}`} 
+                                            className="bd-placeholder-img bd-placeholder-img rounded-0" 
+                                            alt={item.name} 
+                                        />
+                                    </td>
+                                    <td>{item.name}</td>
+                                    <td>{item.createdAt}</td>
+                                    <td>{item.quantity}</td>
+                                    <td>{item.description}</td>
+                                    <td className="text-start">
+                                        <label className="form-switch float-end mb-0">
+                                            <span>Ẩn / Hiện</span> 
+                                            <input 
+                                                type="checkbox" 
+                                                name="form-switch-checkbox3"   
+                                                checked={item.status} 
+                                                onChange={() => handleCheckboxChange(item.id)} 
+                                                className="form-switch-input"
+                                            />
+                                            <span className="form-switch-indicator custom-radius"></span>
                                         </label>
                                     </td>
                                     <td>
-                                        <div class="hstack gap-2 fs-15">
-                                            <Link to={"/admin/topic/1"} class="btn btn-icon btn-sm btn-success-transparent rounded-pill"><i class="ri-search-line"></i></Link>
-                                            <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-danger-transparent rounded-pill"><i class="ri-delete-bin-line"></i></a>
+                                        <div className="hstack gap-2 fs-15">
+                                            <Link 
+                                                to={`/admin/topic/${item.id}`}
+                                                className="btn btn-icon btn-sm btn-success-transparent rounded-pill"
+                                            >
+                                                <i className="ri-search-line"></i>
+                                            </Link>
+                                            <button className="btn btn-icon btn-sm btn-success-transparent rounded-pill" onClick={() => handleEdit(item.id)}>
+                                                <i className="ri-edit-line"></i>
+                                            </button>
+                                            <button 
+                                                onClick={() => handleDelete(item.id)} 
+                                                className="btn btn-icon btn-sm btn-danger-transparent rounded-pill"
+                                            >
+                                                <i className="ri-delete-bin-line"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Job</td>
-                                    <td>10-9-2024</td>
-                                    <td>24</td>
-                                    <td>Đây là từ vựng giúp bạn hiểu rõ về âm nhạc</td>
-                                    <td className='text-start'>
-                                        <label class="form-switch float-end mb-0">
-                                            <a href="javascript:void(0);" class="fs-14 mb-0 me-2 text-primary">Hiện/Ẩn</a>
-                                            <input type="checkbox" name="form-switch-checkbox3" class="form-switch-input"/>
-                                            <span class="form-switch-indicator custom-radius"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <div class="hstack gap-2 fs-15">
-                                            <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-success-transparent rounded-pill"><i class="ri-search-2-line"></i></a>
-                                            <a href="javascript:void(0);" class="btn btn-icon btn-sm btn-danger-transparent rounded-pill"><i class="ri-delete-bin-line"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-footer d-none border-top-0">
-                </div>
+            </div>
+            <div className="card-footer d-none border-top-0"></div>
         </div>
-    )
- }
+    );
+}

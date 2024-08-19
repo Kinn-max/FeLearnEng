@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function ListUser() {
+
   return (
     <div class="card custom-card">
         <div class="card-header px-5 pt-5 pb-3 justify-content-between">
@@ -44,9 +45,8 @@ export default function ListUser() {
                                     <td>
                                         <a href="javascript:void(0);">mila@kunis.com</a>
                                     </td>
-                                    <td >
+                                    <td>
                                         <label class="form-switch float-end mb-0">
-                                            <a href="javascript:void(0);" class="fs-14 mb-0 me-2 text-primary">Hiện/Ẩn</a>
                                             <input type="checkbox" name="form-switch-checkbox3" class="form-switch-input"/>
                                             <span class="form-switch-indicator custom-radius"></span>
                                         </label>
@@ -55,12 +55,12 @@ export default function ListUser() {
                                         <a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Tùy chỉnh" data-bs-original-title="search">
                                             <i class="las la-search"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-info btn-b" data-bs-toggle="tooltip" title="Phân quyền" data-bs-original-title="edit">
-                                            <i class="las la-pen"></i>
-                                        </a>
                                         <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" data-bs-original-title="delete">
                                             <i class="las la-trash"></i>
                                         </a>
+                                        <div class="btn-group dropup my-1">
+                                        
+                                    </div>
                                     </td>
                                 </tr>
                                 

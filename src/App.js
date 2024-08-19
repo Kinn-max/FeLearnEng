@@ -17,6 +17,7 @@ import DetailParagraph from "./components/web/details/DetailParagraph";
 import Exam from "./pages/web/Exam";
 //
 import AdminHome from "./pages/admin/AdminHome";
+import Breadcrumb from './Utils/Breadcrumb';
 
 function App() {
   return (
@@ -42,14 +43,14 @@ function Content() {
         <Route path="/home" element={<CommonHome />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/study" element={<Study />} />
-        <Route path="/course" element={<Course />} />
+        <Route path="/book" element={<Course />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/grammar" element={<Grammar />} />
         <Route path="/grammar/detail" element={<DetailGrammar />} />
-        <Route path="/course/detail" element={<DetailCourse />} />
-        <Route path="/study/study-vocabulary" element={<DetailVocabulary />} />
-        <Route path="/study/practice-vocabulary" element={<DetailVocabularyPractice />} />
+        <Route path="/book/detail/:id" element={<DetailCourse />} />
+        <Route path="/study/learn/:id" element={<DetailVocabulary />} />
+        <Route path="/study/practice/:id" element={<DetailVocabularyPractice />} />
         <Route path="/study/paragraph-practice" element={<DetailParagraph />} />
         <Route path="/study/exam" element={<Exam />} />
       </Routes>

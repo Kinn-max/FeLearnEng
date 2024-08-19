@@ -1,25 +1,41 @@
+import { useEffect, useState } from "react";
 import ItemVocabulary from "../../components/web/items/ItemVocabulary";
+import { getAllItemOfCategory } from "../../api/CategoryApi";
 
 function ListVocabulary(){
+    const [listCategory, setListCategory] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [listVocabulary, setListVocabulary] = useState({}); 
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllItemOfCategory("vocabulary");
+                if (data) {
+                    setListCategory(data);
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-
+        fetchCategories();
+    }, []);
     return(
         <div class="card custom-card">
-                    <div class="card-header justify-content-between">
-                        <div class="card-title">
-                            Danh sách từ vựng
-                        </div>
-                        <div class="prism-toggle">
-                            <button class="btn btn-sm btn-primary-light">Show Code<i class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
-                        </div>
-                    </div>
-         
-                    <div class="row px-4">
-                        <ItemVocabulary/>
-                        <ItemVocabulary/>
-                        <ItemVocabulary/>
-                    </div>
+            <div class="card-header px-5 justify-content-between">
+                <div class="card-title">
+                    Danh sách từ vựng
+                </div>
             </div>
+            <div class="row px-4 py-4">
+                {listCategory.map((item, index) => (
+                    <ItemVocabulary key={item.id} vocabulary={item}/>
+                ))}
+            </div>
+        </div>
     )
 }
 export default ListVocabulary;

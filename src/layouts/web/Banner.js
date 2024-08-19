@@ -1,18 +1,20 @@
 import React from 'react'
 
 export default function Banner() {
+    const imageUrl = process.env.PUBLIC_URL + '/assets/images/img-banner.jpg';
+
   return (
     <div class="landing-banner" id="home">
                 <section class="section">
                     <div class="container main-banner-container">
-                        <div class="row justify-content-center text-center">
+                        <div style={{ backgroundImage: `url(${imageUrl})`, paddingBottom: '30px' }} class="row style-background  justify-content-center text-center">
                             <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8">
                                 <div class="py-5 pb-lg-0">
                                     <div class="mb-3">
-                                        <h5 class="fw-semibold text-fixed-white op-9">Manage Your Business</h5>
+                                        <h5 class="fw-semibold ">Học tiếng anh mỗi ngày</h5>
                                     </div>
-                                    <p class="landing-banner-heading mb-3">Build Your Dream Project with Valex !</p>
-                                    <div class="fs-16 mb-5 text-fixed-white op-7"> Valex - Now you can use this admin template to design stunning dashboards that will wow your target viewers or users to no end. To create a good and well-structured dashboard, you need to start from scratch with HTML, SCSS, CSS, and JS and with lots of coding, but by using this Valex-Admin template.</div>
+                                    <p class="landing-banner-heading mb-3">Xây dựng nền tảng tiếng anh !</p>
+                                    <div class="fs-16 mb-5"> Valex - Now you can use this admin template to design stunning dashboards that will wow your target viewers or users to no end. To create a good and well-structured dashboard, you need to start from scratch with HTML, SCSS, CSS, and JS and with lots of coding, but by using this Valex-Admin template.</div>
                                     <a href="index.html" class="m-1 btn btn-primary">
                                         Discover More
                                         <i class="fe fe-eye ms-2 align-middle"></i>
@@ -23,7 +25,7 @@ export default function Banner() {
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                            </div>
                     </div>
                 </section>
                 <section class="section section-bg " id="features">
@@ -104,60 +106,60 @@ export default function Banner() {
                 </div>
                 </section>
                 <section class="section " id="about">
-                <div class="container text-center">
-                    <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">Our Mission</span>
-                    </p>
-                    <div class="landing-title"></div>
-                    <h3 class="fw-semibold mb-2"> Our mission is to make work meaningful. </h3>
-                    <div class="row justify-content-center">
-                        <div class="col-xl-7">
-                            <p class="text-muted fs-15 mb-3 fw-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est dui, rutrum in nulla eu,</p>
-                        </div>
-                    </div> 
-                    <div class="row justify-content-center align-items-center mx-0">
-                        <div class="col-xxl-4 col-xl-5 col-lg-5 text-center text-lg-start">
-                            <img src="../assets/images/media/pngs/9.png" alt="" class="img-fluid"/>
-                        </div>
-                        <div class="col-xxl-8 col-xl-7 col-lg-7 pt-5 pb-0 px-lg-2 px-5 text-start">
-                            <h4 class="text-lg-start fw-medium mb-4">We are a creative agency with a passion for design. </h4>
-                            <div class="row">
-                                <div class="col-12 col-md-12">
-                                    <div class="d-flex mb-2">
-                                        <span>
-                                            <i class="bx bxs-badge-check text-primary fs-18"></i>
-                                        </span>
-                                        <div class="ms-2">
-                                            <h6 class="fw-medium mb-0">Quality &amp; Clean Code </h6>
-                                            <p class=" text-muted mb-3"> The Valex admin code is maintained very cleanly and well-structured with proper comments. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12">
-                                    <div class="d-flex mb-2">
-                                        <span>
-                                            <i class="bx bxs-badge-check text-primary fs-18"></i>
-                                        </span>
-                                        <div class="ms-2">
-                                            <h6 class="fw-medium mb-0">Well Documented</h6>
-                                            <p class=" text-muted mb-3"> The documentation provides clear-cut material for the Valex admin template. The documentation is explained or instructed in such a way that every user can understand. </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-12">
-                                    <div class="d-flex mb-2">
-                                        <span>
-                                            <i class="bx bxs-badge-check text-primary fs-18"></i>
-                                        </span>
-                                        <div class="ms-2">
-                                            <h6 class="fw-medium mb-0">Switch Easily From One Color to Another Color style</h6>
-                                            <p class=" text-muted">lorem ipsum, dolor sit var ameto condesetrat aiatel varen or damsenlel verman code Lorem ipsum, dolor sit amet consectetur </p>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="container text-center">
+                        <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">Our Mission</span>
+                        </p>
+                        <div class="landing-title"></div>
+                        <h3 class="fw-semibold mb-2"> Our mission is to make work meaningful. </h3>
+                        <div class="row justify-content-center">
+                            <div class="col-xl-7">
+                                <p class="text-muted fs-15 mb-3 fw-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est dui, rutrum in nulla eu,</p>
                             </div>
                         </div> 
+                        <div class="row justify-content-center align-items-center mx-0">
+                            <div class="col-xxl-4 col-xl-5 col-lg-5 text-center text-lg-start">
+                                <img src="../assets/images/dai_dien2.png" alt="" class="img-fluid"/>
+                            </div>
+                            <div class="col-xxl-8 col-xl-7 col-lg-7 pt-5 pb-0 px-lg-2 px-5 text-start">
+                                <h4 class="text-lg-start fw-medium mb-4">We are a creative agency with a passion for design. </h4>
+                                <div class="row">
+                                    <div class="col-12 col-md-12">
+                                        <div class="d-flex mb-2">
+                                            <span>
+                                                <i class="bx bxs-badge-check text-primary fs-18"></i>
+                                            </span>
+                                            <div class="ms-2">
+                                                <h6 class="fw-medium mb-0">Quality &amp; Clean Code </h6>
+                                                <p class=" text-muted mb-3"> The Valex admin code is maintained very cleanly and well-structured with proper comments. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12">
+                                        <div class="d-flex mb-2">
+                                            <span>
+                                                <i class="bx bxs-badge-check text-primary fs-18"></i>
+                                            </span>
+                                            <div class="ms-2">
+                                                <h6 class="fw-medium mb-0">Well Documented</h6>
+                                                <p class=" text-muted mb-3"> The documentation provides clear-cut material for the Valex admin template. The documentation is explained or instructed in such a way that every user can understand. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12">
+                                        <div class="d-flex mb-2">
+                                            <span>
+                                                <i class="bx bxs-badge-check text-primary fs-18"></i>
+                                            </span>
+                                            <div class="ms-2">
+                                                <h6 class="fw-medium mb-0">Switch Easily From One Color to Another Color style</h6>
+                                                <p class=" text-muted">lorem ipsum, dolor sit var ameto condesetrat aiatel varen or damsenlel verman code Lorem ipsum, dolor sit amet consectetur </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                </div>
                 </section>
                 <section class="section section-bg " id="statistics">
                 <div class="container text-center">

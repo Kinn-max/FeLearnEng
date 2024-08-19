@@ -1,41 +1,46 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getAllVocabularyByCategoryById } from '../../../api/VocabularyApi';
 
-const cards = [
-  {
-    english: { name: "Sound", image: "sound.jpg", transcription: "/sound/", part: "N", example: "The sound of the waves crashing on the shore was very soothing.", sound: "sound.mp3" },
-    vietnamese: { name: "Âm thanh", part: "Danh từ" }
-  },
-  {
-    english: { name: "Note", image: "note.jpg", transcription: "/nōt/", part: "N", example: "In the A minor scale, the notes are A, B, C, D, E, F, G, A.", sound: "note.mp3" },
-    vietnamese: { name: "Nốt", part: "Danh từ" }
-  },
-  {
-    english: { name: "Lyric", image: "lyric.jpg", transcription: "/ˈlirik/", part: "N", example: "The lyrics of the song were very touching.", sound: "lyric.mp3" },
-    vietnamese: { name: "Lời bài hát", part: "Danh từ" }
-  },
-  {
-    english: { name: "Music", image: "music.jpg", transcription: "/ˈmyo͞ozik/", part: "N", example: "Classical music helps me concentrate while studying.", sound: "music.mp3" },
-    vietnamese: { name: "Âm nhạc", part: "Danh từ" }
-  },
-];
+// const cards = [
+//   {
+//     english: { name: "Sound", image: "sound.jpg", transcription: "/sound/", part: "N", example: "The sound of the waves crashing on the shore was very soothing.", sound: "sound.mp3" },
+//     vietnamese: { name: "Âm thanh", part: "Danh từ" }
+//   },
+//   {
+//     english: { name: "Note", image: "note.jpg", transcription: "/nōt/", part: "N", example: "In the A minor scale, the notes are A, B, C, D, E, F, G, A.", sound: "note.mp3" },
+//     vietnamese: { name: "Nốt", part: "Danh từ" }
+//   },
+//   {
+//     english: { name: "Lyric", image: "lyric.jpg", transcription: "/ˈlirik/", part: "N", example: "The lyrics of the song were very touching.", sound: "lyric.mp3" },
+//     vietnamese: { name: "Lời bài hát", part: "Danh từ" }
+//   },
+//   {
+//     english: { name: "Music", image: "music.jpg", transcription: "/ˈmyo͞ozik/", part: "N", example: "Classical music helps me concentrate while studying.", sound: "music.mp3" },
+//     vietnamese: { name: "Âm nhạc", part: "Danh từ" }
+//   },
+// ];
 
 const DetailVocabulary = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState(null);
   const [isTransformed, setIsTransformed] = useState(false); 
+  const {id} = useParams()
+  const [cards,setCard] = useState([])
+  const [loading, setLoading] = useState(false);
+
   const progress = useMemo(() => ((currentIndex + 1) / cards.length) * 100, [currentIndex]);
 
   const handleFlip = useCallback(() => setIsFlipped(prev => !prev), []);
 
   const playAudio = useCallback((sound, event) => {
     event.stopPropagation();
-    const audio = new Audio(`/assets/sound/music/${sound}`);
+    const audio = new Audio(`${sound}`);
     audio.play();
   }, []);
 
@@ -51,7 +56,27 @@ const DetailVocabulary = () => {
       direction === 'prev' ? swiperInstance.slidePrev() : swiperInstance.slideNext();
     }
   }, [swiperInstance]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+        setLoading(true);
+        try {
+            const data = await getAllVocabularyByCategoryById(id);
+            if (data) {
+              setCard(data);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    fetchCategories();
+}, []);
+
+if (loading) {
+  return <div className="text-center mt-5">Đang tải...</div>; 
+}
   return (
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -84,18 +109,18 @@ const DetailVocabulary = () => {
                         <div className="flip-card-front">
                           <div className="row g-0 format-cart text-start">
                             <div className="col-md-4">
-                              <img src={`/assets/images/music/${card.english.image}`} className="card-img mb-3" alt={card.english.name} />
+                              <img  src={`data:image/jpeg;base64,${card.image}`} className="card-img mb-3 rounded" alt={card.name} />
                             </div>
                             <div className="col-md-8">
                               <div className="card-header">
-                                <div className="card-title fs-2">{card.english.name}</div>
+                                <div className="card-title fs-2">{card.name}</div>
                               </div>
                               <div className="card-body">
-                                <h6 className="card-subtitle fw-medium mb-2">{card.english.transcription} ({card.english.part})</h6>
-                                <p className="card-text fs-5">{card.english.example}</p>
+                                <h6 className="card-subtitle fw-medium mb-2">/ {card.transcription} / ({card.part})</h6>
+                                <p className="card-text fs-5">{card.description}</p>
                               </div>
                               <div className="card-footer card-footer-front">
-                                <button className="btn btn-link" onClick={(e) => playAudio(card.english.sound, e)}>
+                                <button className="btn btn-link" onClick={(e) => playAudio(card.sound, e)}>
                                   <i className="bx bx-volume-full fs-2"></i>
                                 </button>
                                 <p><small className="text-muted"
@@ -107,14 +132,14 @@ const DetailVocabulary = () => {
                         <div className="flip-card-back">
                           <div className="row text-start g-0">
                             <div className="col-md-4">
-                              <img src={`/assets/images/music/${card.english.image}`} className="img-fluid rounded-start h-100 w-100" alt={card.vietnamese.name} />
+                              <img style={{  height:"50px"}} src={`data:image/jpeg;base64,${card.image}`} className="img-fluid  rounded h-100 w-100" alt={card.vietnamese} />
                             </div>
                             <div className="col-md-8">
                               <div className="card-header">
-                                <div className="card-title fs-2">{card.vietnamese.name}</div>
+                                <div className="card-title fs-2">{card.nameVietnamese}</div>
                               </div>
                               <div className="card-body">
-                                <p className="card-text">{card.vietnamese.part}</p>
+                                <p className="card-text">{card.vietnamese}</p>
                               </div>
                               <div className="card-footer card-footer-back">
                                 <p><small className="text-muted"

@@ -7,10 +7,10 @@ const Header = ()=>{
 
 
     return(
-        <nav class="navbar navbar-expand-lg bg-light mb-4">
+        <nav class="navbar back-ground-custom navbar-expand-lg bg-light mb-4">
             <div class="container">
                 <a class="navbar-brand" href="javascript:void(0);">
-                    <img src="../assets/images/brand-logos/toggle-logo.png" alt="" class="d-inline-block align-text-top"/>
+                    <img src="../assets/images/logo.png" alt="" class="d-inline-block align-text-top"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@ const Header = ()=>{
                             <Link class="nav-link active" aria-current="page" to={"/"}>Trang chủ</Link>
                         </li>
                         <li class="nav-item">
-                        <NavLink className="nav-link" to={"/course"}>Khóa học</NavLink>
+                        <NavLink className="nav-link" to={"/book"}>Sách</NavLink>
                         </li>
                         <li class="nav-item">
                         <NavLink className="nav-link" to={"/study"}>Luyện tập</NavLink>

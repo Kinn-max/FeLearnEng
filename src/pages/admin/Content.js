@@ -11,24 +11,33 @@ import Grammar from '../../layouts/admin/Grammar'
 import ListGrammar from '../../layouts/admin/ListGrammar'
 import DetailGrammar from '../../components/admin/DetailGrammar'
 import ListUser from '../../layouts/admin/ListUser'
+import Breadcrumb from '../../Utils/Breadcrumb'
+import Product from '../../layouts/admin/Product'
+import ListProduct from '../../layouts/admin/ListProduct'
+
+
 
 
 export default function Content() {
   return (
     <div className="col-xl-10">
+      <Breadcrumb />
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/topic" element={<Topic />} />
-        <Route path="/topic/1" element={<ListVocabulary />} />
-        <Route path="/topic/1/vocabulary/1" element={<DetailVocabulary />} />
+        <Route path="/topic/:id" element={<ListVocabulary />} />
+        <Route path="/topic/:id/vocabulary/:id" element={<DetailVocabulary />} />
         <Route path="/exam" element={<Exam />} />
-        <Route path="/exam/1" element={<ListQuestion />} />
-        <Route path="/exam/1/question/1" element={<DetailQuestion />} />
+        <Route path="/exam/:id" element={<ListQuestion />} />
+        <Route path="/exam/:id/question/:id" element={<DetailQuestion />} />
         <Route path="/grammar" element={<Grammar />} />
-        <Route path="/grammar/1" element={<ListGrammar />} />
-        <Route path="/grammar/edit-grammar" element={<DetailGrammar />} />
+        <Route path="/grammar/:id" element={<ListGrammar />} />
+        <Route path="/grammar/:idCate/edit-grammar" element={<DetailGrammar />} />
+        <Route path="/grammar/:idCate/edit-grammar/:idEdit" element={<DetailGrammar />} />
         <Route path="/user-list" element={<ListUser />} />
+        <Route path="/category" element={<Product />} />
+        <Route path="/category/:id" element={<ListProduct />} />
       </Routes>
     </div>
   )
