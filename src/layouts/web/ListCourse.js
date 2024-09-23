@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllItemOfCategory } from '../../api/CategoryApi';
+import { getAllItemOfCategory, getAllItemOfCategoryAndStatus } from '../../api/CategoryApi';
 import { getAllProductByCategoryStatus } from '../../api/ProductApi';
 
 export default function ListCourse() {
@@ -12,7 +12,7 @@ export default function ListCourse() {
         const fetchCategories = async () => {
             setLoading(true);
             try {
-                const data = await getAllItemOfCategory("product");
+                const data = await getAllItemOfCategoryAndStatus("product");
                 if (data) {
                     setListCategory(data);
                 }
@@ -61,16 +61,16 @@ export default function ListCourse() {
                         </div>
                     </div>
                     {listProduct[item.id]?.map((product, idx) => (
-                       <div key={idx} className="col-md-4 col-lg-3 col-xl-3 col-sm-3">
-						   <div className="card">
-							   <div className="card-body  h-100">
+                       <div key={idx} className="col-md-4 col-lg-3 col-xl-3 col-sm-3" style={{height: "320px"}}>
+						   <div className="border">
+							   <div className="card-body  h-100" >
 								   <div className="pro-img-box">
 								  		<Link to={`/book/detail/${product.id}`}>
 										   <img className="w-100 rounded-3"style={{ maxWidth: '150px' ,height:"150px"}}  src={`data:image/jpeg;base64,${product.image}`} alt="product-image" />
 									  	</Link>
-									   <a href="product-cart.html" className="adtocart">
+									   <div href="product-cart.html" className="adtocart">
 										   <i className="las la-shopping-cart"></i>
-									   </a>
+									   </div>
 								   </div>
 								   <div className="text-center pt-3 ">
 									   <h3 style={{ maxHeight: '150px'}} className="h6 two-lines mb-2  mt-4 fw-bold text-uppercase">{product.name}</h3>

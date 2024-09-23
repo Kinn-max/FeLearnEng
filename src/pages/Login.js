@@ -1,7 +1,48 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import {  loginApi } from '../api/UserApi'
+import ShowNotification from '../Utils/Notification'
+import { jwtDecode } from 'jwt-decode'
+
 
 export default function Login() {
+    const [passWord,setPassWord] = useState("")
+    const [email,setEmail] = useState("")
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        const data ={
+            email:email,
+            password:passWord,
+        }
+       if(email.length > 0 && passWord.length > 0){
+
+           try {
+               const response = await loginApi(data)
+               if (response) {
+                const token = localStorage.getItem('jwtToken');
+                if (token) {
+                    const userData = jwtDecode(token);
+                    if (userData && userData.role) {
+                        console.log(userData.role)
+                        if (userData.role === 'ADMIN') {
+                            setTimeout(() => {
+                                window.location.href = '/admin/home'; 
+                            }, 2000); 
+                        }else{
+                            setTimeout(() => {
+                                window.location.href = '/home'; 
+                            }, 2000); 
+                        }
+                    }
+                }
+               }
+             } catch (error) {
+               console.error("Error submitting the form", error);
+             }
+       }else{
+        ShowNotification("error", "Thất bại",  "Vui lòng nhập đủ tên đăng nhập và mật khẩu" ); 
+       }
+    }
   return (
     <div class="container-fluid custom-page">
         <div class="row bg-white">
@@ -27,14 +68,22 @@ export default function Login() {
                                     <div class="main-signup-header">
                                         <h3>Welcome back!</h3>
                                         <h6 class="fw-medium mb-4 fs-17">Please sign in to continue.</h6>
-                                        <form>
-                                            <div class="form-group mb-3">
-                                                <label class="form-label">Email</label> <input class="form-control" placeholder="Enter your email" type="text"/>
+                                        <form  onSubmit={handleSubmit}>
+                                             <div class="form-group mb-3">
+                                                    <label class="form-label">Email</label>
+                                                     <input class="form-control" placeholder="Enter your email" type="text"
+                                                             value={email}
+                                                             onChange={(e)=>setEmail(e.target.value)}
+                                                     />
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label">Password</label>
+                                                     <input class="form-control" placeholder="Enter your password" type="password"
+                                                      value={passWord}
+                                                      onChange={(e)=>setPassWord(e.target.value)}
+                                                     />
                                             </div>
-                                            <div class="form-group mb-3">
-                                                <label class="form-label">Password</label> <input class="form-control" placeholder="Enter your password" type="password"/>
-                                            </div>
-                                            <a href="index.html" class="btn btn-primary btn-block w-100">Sign In</a>
+                                            <button type='submit' class="btn btn-primary btn-block w-100">Sign In</button>
                                             <div class="row mt-3">
                                                 <div class="col-sm-6">
                                                     <button class="btn btn-block w-100 btn-facebook"><i class="fab fa-facebook-f me-2"></i> Signup with

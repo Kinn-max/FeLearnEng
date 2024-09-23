@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function DetailExam({ listQuestion, selectedQuestion, onNextQuestion, onPrevQuestion }) {
+export default function DetailExam({ listQuestion, selectedQuestion, onNextQuestion, onPrevQuestion,setListAnswer }) {
     const [swiperInstance, setSwiperInstance] = useState(null);
 
     const handleNavigation = useCallback((direction) => {
@@ -23,10 +23,18 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
         }
     }, [swiperInstance, selectedQuestion]);
 
+    const handleAnswerSelect = (index, answer) => {
+        setListAnswer(prev => ({
+            ...prev,
+            [index]: answer
+        }));
+    };
+    
+
     return (
         <div className="card custom-card">
             <div className="card-header justify-content-between">
-                <div className="card-title">Default Buttons</div>
+                <div className="card-title">Tổng số câu hỏi: {listQuestion.length}</div>
                 <div className="prism-toggle">
                     <button className="btn btn-primary-light">Thời gian làm bài</button>
                 </div>
@@ -48,13 +56,14 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
                                     className="btn-check" 
                                     name={`btnradio${index}`} 
                                     id={`btnradio${index}1`} 
-                                    onClick={(e) => console.log(e.target.id)}
+                                    value={"A"}
+                                    onClick={(e) => handleAnswerSelect(index, e.target.value)}
                                 />
                                 <label 
                                     className="text-start btn btn-outline-success my-1 btn-wave waves-effect waves-light" 
                                     htmlFor={`btnradio${index}1`}
                                 >
-                                    {item.a}
+                                    {"A. "+item.answerA}
                                 </label>
 
                                 <input 
@@ -62,13 +71,14 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
                                     className="btn-check" 
                                     name={`btnradio${index}`} 
                                     id={`btnradio${index}2`} 
-                                    onClick={(e) => console.log(e.target.id)}
+                                    value={"B"}
+                                    onClick={(e) => handleAnswerSelect(index, e.target.value)}
                                 />
                                 <label 
                                     className="text-start btn btn-outline-success my-1 btn-wave waves-effect waves-light" 
                                     htmlFor={`btnradio${index}2`}
                                 >
-                                    {item.b}
+                                    {"B. "+item.answerB}
                                 </label>
 
                                 <input 
@@ -76,12 +86,14 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
                                     className="btn-check" 
                                     name={`btnradio${index}`} 
                                     id={`btnradio${index}3`} 
+                                    value={"C"}
+                                    onClick={(e) => handleAnswerSelect(index, e.target.value)}
                                 />
                                 <label 
                                     className="text-start btn btn-outline-success my-1 btn-wave waves-effect waves-light" 
                                     htmlFor={`btnradio${index}3`}
                                 >
-                                    {item.c}
+                                   {"C. "+item.answerC}
                                 </label>
 
                                 <input 
@@ -89,12 +101,14 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
                                     className="btn-check" 
                                     name={`btnradio${index}`} 
                                     id={`btnradio${index}4`} 
+                                    value={"D"}
+                                    onClick={(e) => handleAnswerSelect(index, e.target.value)}
                                 />
                                 <label 
                                     className="text-start btn btn-outline-success my-1 btn-wave waves-effect waves-light" 
                                     htmlFor={`btnradio${index}4`}
                                 >
-                                    {item.d}
+                                 {"D. "+item.answerD}
                                 </label>
                             </div>
                         </SwiperSlide>

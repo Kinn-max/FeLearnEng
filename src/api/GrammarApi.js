@@ -17,11 +17,12 @@ export async function getAllGrammarByCategoryId(id) {
 }
 export async function createBlog(data) {
     const link = `http://localhost:8080/api/grammar`;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -56,11 +57,12 @@ export async function getBlogById(id) {
 }
 export async function updateBlog(data,id) {
     const link = `http://localhost:8080/api/grammar/`+id;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'PUT',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -80,11 +82,12 @@ export async function updateBlog(data,id) {
 }
 export async function deleteBlog(data) {
     const link = `http://localhost:8080/api/grammar/`+data;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'DELETE',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         });

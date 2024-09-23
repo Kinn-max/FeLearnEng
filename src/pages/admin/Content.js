@@ -14,6 +14,7 @@ import ListUser from '../../layouts/admin/ListUser'
 import Breadcrumb from '../../Utils/Breadcrumb'
 import Product from '../../layouts/admin/Product'
 import ListProduct from '../../layouts/admin/ListProduct'
+import Order from '../../layouts/admin/Order'
 
 
 
@@ -25,9 +26,10 @@ export default function Content() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
-        <Route path="/topic" element={<Topic />} />
-        <Route path="/topic/:id" element={<ListVocabulary />} />
-        <Route path="/topic/:id/vocabulary/:id" element={<DetailVocabulary />} />
+        <Route path="/order" element={<Order/>} />
+        <Route path="/topic" element={<Topic/>} />
+        <Route path="/topic/:id" element={<ListVocabulary/>} />
+        <Route path="/topic/:id/vocabulary/:id" element={<DetailVocabulary/>} />
         <Route path="/exam" element={<Exam />} />
         <Route path="/exam/:id" element={<ListQuestion />} />
         <Route path="/exam/:id/question/:id" element={<DetailQuestion />} />

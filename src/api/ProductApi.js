@@ -18,11 +18,12 @@ export async function getAllProductByCategoryById(id) {
 }
 export async function createProduct(data) {
     const link = `http://localhost:8080/api/product`;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -42,11 +43,12 @@ export async function createProduct(data) {
 }
 export async function updateProduct(data,id) {
     const link = `http://localhost:8080/api/product/`+id;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'PUT',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
@@ -67,11 +69,12 @@ export async function updateProduct(data,id) {
 }
 export async function deleteProduct(data) {
     const link = `http://localhost:8080/api/product/`+data;
-
+    const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
             method: 'DELETE',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),

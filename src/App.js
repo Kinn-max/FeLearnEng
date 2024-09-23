@@ -18,6 +18,11 @@ import Exam from "./pages/web/Exam";
 //
 import AdminHome from "./pages/admin/AdminHome";
 import Breadcrumb from './Utils/Breadcrumb';
+import Cart from './pages/web/Cart';
+import Profile from './pages/web/Profile';
+import AnswerChart from './Utils/AnswerChart';
+import ConfirmAccount from './pages/ConfirmAccount';
+import CheckOut from './pages/web/CheckOut';
 
 function App() {
   return (
@@ -34,10 +39,11 @@ function Content() {
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isRegisterRoute = location.pathname === '/register';
   const isLoginRoute = location.pathname === '/login';
+  const isActivateRoute = location.pathname === '/activate';
 
   return (
     <>
-      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute) && <Header />}
+      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute && !isActivateRoute) && <Header />}
       <Routes>
         <Route path="/" element={<CommonHome />} />
         <Route path="/home" element={<CommonHome />} />
@@ -45,19 +51,24 @@ function Content() {
         <Route path="/study" element={<Study />} />
         <Route path="/book" element={<Course />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/activate" element={<ConfirmAccount />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/check-out" element={<CheckOut />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/grammar" element={<Grammar />} />
         <Route path="/grammar/detail" element={<DetailGrammar />} />
         <Route path="/book/detail/:id" element={<DetailCourse />} />
         <Route path="/study/learn/:id" element={<DetailVocabulary />} />
         <Route path="/study/practice/:id" element={<DetailVocabularyPractice />} />
+        <Route path="/study/result" element={<AnswerChart />} />
         <Route path="/study/paragraph-practice" element={<DetailParagraph />} />
-        <Route path="/study/exam" element={<Exam />} />
+        <Route path="/study/exam/:id" element={<Exam />} />
       </Routes>
       <Routes>
         <Route path="/admin/*" element={<AdminHome />} />
       </Routes>
-      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute) && <Footer />}
+      {(!isAdminRoute && !isRegisterRoute && !isLoginRoute && !isActivateRoute) && <Footer />}
     </>
   )
 }

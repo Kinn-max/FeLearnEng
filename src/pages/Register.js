@@ -1,7 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { createUser } from '../api/UserApi'
+import ShowNotification from '../Utils/Notification'
 
 export default function Register() {
+    const navigate = useNavigate();
+
+    const [passWord,setPassWord] = useState("")
+    const [confirmPassWord,setConfirmPassWord] = useState("")
+    const [email,setEmail] = useState("")
+    const [fullName,setFullName] = useState("")
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        const data ={
+            fullName:fullName,
+            email:email,
+            password:passWord,
+            confirmPassword:confirmPassWord,
+            role:2
+        }
+        try {
+            console.log(data)
+            const response = await createUser(data,navigate)
+            if(response){
+                navigate('/activate')
+            }
+          } catch (error) {
+            console.error("Error submitting the form", error);
+          }
+    }
   return (
     <div class="container-fluid custom-page">
         <div class="row bg-white">
@@ -27,17 +54,36 @@ export default function Register() {
                                         <div class="main-signup-header">
                                             <h3>Get Started</h3>
                                             <h6 class="fw-medium mb-4 fs-17">It's free to signup and only takes a minute.</h6>
-                                            <form>
+                                            <form onSubmit={handleSubmit}>
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label">First Name and last Name</label> <input class="form-control" placeholder="Enter your first Name and last Name" type="text"/>
+                                                    <label class="form-label">Full name</label>
+                                                         <input class="form-control" placeholder="Enter your first Name and last Name" type="text"
+                                                            value={fullName}
+                                                            onChange={(e)=>setFullName(e.target.value)}
+                                                         />
                                                 </div>
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label">Email</label> <input class="form-control" placeholder="Enter your email" type="text"/>
+                                                    <label class="form-label">Email</label>
+                                                     <input class="form-control" placeholder="Enter your email" type="text"
+                                                             value={email}
+                                                             onChange={(e)=>setEmail(e.target.value)}
+                                                     />
                                                 </div>
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label">Password</label> <input class="form-control" placeholder="Enter your password" type="password"/>
+                                                    <label class="form-label">Password</label>
+                                                     <input class="form-control" placeholder="Enter your password" type="password"
+                                                      value={passWord}
+                                                      onChange={(e)=>setPassWord(e.target.value)}
+                                                     />
                                                 </div>
-                                                <a href="index.html" class="btn btn-primary btn-block w-100">Create Account</a>
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label">Confirm Password</label>
+                                                    <input class="form-control" placeholder="Enter your confirm password" type="password"
+                                                     value={confirmPassWord}
+                                                     onChange={(e)=>setConfirmPassWord(e.target.value)}
+                                                    />
+                                                </div>
+                                                <button type='submit' class="btn btn-primary btn-block w-100">Create Account</button>
                                                 <div class="row mt-3">
                                                     <div class="col-sm-6">
                                                         <button class="btn btn-block w-100 btn-facebook"><i class="fab fa-facebook-f me-2"></i> Signup with

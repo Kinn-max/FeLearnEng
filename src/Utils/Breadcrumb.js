@@ -13,7 +13,10 @@ function Breadcrumb() {
         "paragraph":"Đoạn văn",
         "home":" ",
         "admin":"Quản lý",
-        "product":"Sản phẩm"
+        "product":"Sản phẩm",
+        "user-list":"Danh sách người dùng",
+        "category":"Danh mục",
+        "order":"Danh sách đơn hàng"
     };
 
     return (

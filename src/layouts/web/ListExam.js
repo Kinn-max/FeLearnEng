@@ -1,21 +1,39 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ItemExam from '../../components/web/items/ItemExam'
+import { getAllItemOfCategoryAndStatus } from '../../api/CategoryApi';
 
 export default function ListExam() {
+    const [ListExam, setListExam] = useState([])
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setLoading(true);
+            try {
+                const data = await getAllItemOfCategoryAndStatus("exam");
+                if (data) {
+                    setListExam(data);
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
   return (
     <div class="card custom-card">
-        <div class="card-header justify-content-between">
+        <div class="card-header justify-content-between pb-4">
             <div class="card-title">
-                Danh sách từ vựng
-            </div>
-            <div class="prism-toggle">
-                <button class="btn btn-sm btn-primary-light">Show Code<i class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                Danh sách bài thi
             </div>
         </div>
         <div class="row px-3 text-start">
-            <ItemExam/>
-            <ItemExam/>
+            {ListExam.map((item, index) => (
+                  <ItemExam exam={item} key={item.id}/>   
+            ))}       
         </div>
     </div>
   )

@@ -187,7 +187,7 @@ const DetailVocabularyPractice = () => {
             )}
             <div className="card-footer d-flex justify-content-center px-5">
               {currentIndex === cards.length - 1 ? (
-                <Link to="/course" className="btn btn-outline-success rounded-pill btn-wave waves-effect waves-light">
+                <Link to="/study/practice/result" className="btn btn-outline-success rounded-pill btn-wave waves-effect waves-light">
                   Xong
                 </Link>
               ) : (

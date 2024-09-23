@@ -8,15 +8,15 @@ export default function AboutUs() {
       <div class="container about-container">
                     <div class="row about-main mb-5">
                         <div class="col-lg-8 col-md-8 col-sm-12 text-center">
-                            <h1 class="mb-3 fw-semibold fs-46">Hello! This is <span class="text-primary fs-56">Valex.</span></h1>
-                            <p class="leading-normal lead-1">Majority have suffered alteration in some form.</p>
+                            <h1 class="mb-3 fw-semibold fs-46">Xin chào! Đây là <span class="text-primary fs-56">Kinn.</span></h1>
+                            <p class="leading-normal lead-1">Sứ mệnh của chúng tôi sẽ giúp bạn chinh phục được English.</p>
                             <p class="leading-normal  fs-16">There are many variations of passages of Lorem Ipsum available, but the majority have suffered  by injected humour, or randomised words which don't look even slightly believable.
                                 If you are going to use a passage of Lorem Ipsum you are going to use a passage of Lorem Ipsum</p>
                         </div>
                     </div>
 
                     <div class="row mb-5 rounded-5">
-                        <p><img src="../assets/images/media/media-74.jpg" class="rounded-3 w-100" alt="image"/></p>
+                        <p><img src="../assets/images/banner-about.png" class="rounded-3 w-100" alt="image"/></p>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -30,13 +30,11 @@ export default function AboutUs() {
                                                     <h5 class="leading-normal fw-normal mb-4 text-dark">majority have suffered alteration in some form, by injected humour</h5>
                                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered by injected humour, or randomised words which don't look even slightly believable.</p>
                                                     <p>All the Lorem Ipsum generators on the Internet tend to repeat Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                                                    <p> If you are going to use a passage of Lorem Ipsum, you need to as necessary All the Lorem Ipsum generators on the Internet tend to repeat Various versions have evolved over the years, sometimes by
-                                                        accident, sometimes on purpose (injected humour and the like).</p>
                                                 </div>
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="text-center">
-                                                    <img src="../assets/images/media/pngs/7.png" alt="" class="w-100"/>
+                                                    <img src="../assets/images/img-banner-2.jpeg" alt="" class="w-100"/>
                                                 </div>
                                             </div>
                                         </div>

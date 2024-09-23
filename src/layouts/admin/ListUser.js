@@ -1,99 +1,197 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import { deleteUser, getAllUser, getItemUserSearch, statusUser } from '../../api/UserApi';
+import ShowNotification from '../../Utils/Notification';
 
 export default function ListUser() {
+    const [listUser, setListUser] = useState([]);
+    const [reload, setReload] = useState(false);
+    const [nameSearch, setNameSearch] = useState("");
 
-  return (
-    <div class="card custom-card">
-        <div class="card-header px-5 pt-5 pb-3 justify-content-between">
-            <div class="card-title">
-                Danh sách người dùng
-            </div>
-            <div class="card-title d-flex">
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const list = await getAllUser();
+                if (list) {
+                    setListUser(list);
+                }
+            } catch (error) {
+                console.log(error);
+            } 
+        };
 
-            </div>
-        </div>     
-        <div class="card-body">
-             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
-                    <div class="table-responsive border border-bottom-0 userlist-table">
-                        <table class="table card-table table-vcenter text-nowrap mb-0">
-                            <thead>
-                                <tr>
-                                    <th><span>Stt</span></th>
-                                    <th><span>Ảnh</span></th>
-                                    <th><span>Tên</span></th>
-                                    <th><span>Ngày tạo</span></th>
-                                    <th><span>Trạng thái</span></th>
-                                    <th><span>Email</span></th>
-                                    <th><span>Khóa</span></th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <img alt="avatar" class="rounded-circle avatar-md avatar" src="../assets/images/faces/1.jpg"/>
-                                    </td>
-                                    <td>Megan Peters</td>
-                                    <td>
-                                        08/06/2021
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-success-transparent">Active</span>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);">mila@kunis.com</a>
-                                    </td>
-                                    <td>
-                                        <label class="form-switch float-end mb-0">
-                                            <input type="checkbox" name="form-switch-checkbox3" class="form-switch-input"/>
-                                            <span class="form-switch-indicator custom-radius"></span>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Tùy chỉnh" data-bs-original-title="search">
-                                            <i class="las la-search"></i>
+        fetchData();
+    }, [reload]);
+
+    // Handle status update
+    const handleStatusUser = async (id) => {
+        try {
+            await statusUser(id);  
+            ShowNotification("success", "Thành công");
+            setReload(prev => !prev);    
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+
+    // Handle delete
+    const handleDelete = async (id) => {
+        try {
+            await deleteUser(id);  
+            ShowNotification("success", "Thành công");
+            setReload(prev => !prev);    
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+        }
+    };
+
+    // Handle search
+    const handleSearchUser = async (name) => {
+        setNameSearch(name);
+        if (name.trim()) {
+            try {
+                const data = await getItemUserSearch(name); 
+                setListUser(data);
+            } catch (error) {
+                console.error('Error:', error);
+                ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra");
+            }
+        } else {
+            const data = await getAllUser();
+            setListUser(data);
+        }
+    };
+
+    return (
+        <>
+            {listUser.length > 0 ? (
+                <div className="card custom-card">
+                    <div className="card-header px-5 pt-5 pb-3 justify-content-between">
+                        <div className="card-title">
+                            Danh sách người dùng
+                        </div>
+                        <div className="card-title d-flex">
+                            <div className="card-body p-2" style={{ width: "380px" }}>
+                                <div className="input-group">
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        placeholder="Tìm kiếm theo tên hoặc email"
+                                        value={nameSearch}
+                                        onChange={(e) => handleSearchUser(e.target.value)}
+                                    />
+                                    <button className="btn btn-primary" type="button">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
+                                <div className="table-responsive border border-bottom-0 userlist-table">
+                                    <table className="table card-table table-vcenter text-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th><span>Stt</span></th>
+                                                <th><span>Ảnh</span></th>
+                                                <th><span>Tên</span></th>
+                                                <th><span>Ngày tạo</span></th>
+                                                <th><span>Trạng thái</span></th>
+                                                <th><span>Email</span></th>
+                                                <th><span>Khóa</span></th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {listUser.map((item, index) => (
+                                                <tr key={item.id}>
+                                                    <td>{index + 1}</td>
+                                                    <td>
+                                                        <img alt="avatar" className="rounded-circle avatar-md avatar" src="../assets/images/faces/1.jpg" />
+                                                    </td>
+                                                    <td>{item.fullName}</td>
+                                                    <td>{item.createdAt}</td>
+                                                    <td>
+                                                        {item.active ? (
+                                                            <span className="badge bg-success-transparent">Active</span>
+                                                        ) : (
+                                                            <span className="badge bg-danger-transparent">Not Active</span>
+                                                        )}
+                                                    </td>
+                                                    <td>{item.email}</td>
+                                                    <td>
+                                                        <label className="form-switch float-end mb-0" style={{ cursor: 'pointer' }}>
+                                                            <input 
+                                                                type="checkbox"
+                                                                name="form-switch-checkbox3" 
+                                                                checked={!item.active} 
+                                                                value={item.id}
+                                                                className="form-switch-input"
+                                                                onChange={() => handleStatusUser(item.id)}
+                                                            />
+                                                            <span className="form-switch-indicator custom-radius"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0);" className="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Tùy chỉnh">
+                                                            <i className="las la-search"></i>
+                                                        </a>
+                                                        <button 
+                                                            onClick={() => handleDelete(item.id)} 
+                                                            className="btn mx-1 btn-sm btn-danger" 
+                                                            data-bs-toggle="tooltip" 
+                                                            title="Delete"
+                                                        >
+                                                            <i className="las la-trash"></i>
+                                                        </button>
+                                                        <div className="btn btn-sm btn-success">
+                                                            <button 
+                                                                type="button"   
+                                                                className="btn btn-success p-0 m-0 dropdown-toggle dropdown-toggle-split" 
+                                                                data-bs-toggle="dropdown" 
+                                                                aria-expanded="false"
+                                                            >
+                                                                <span className="visually-hidden"></span>
+                                                            </button>
+                                                            <ul className="dropdown-menu" style={{ width: '50px' }}> 
+                                                                <li><button className="dropdown-item bg-success-transparent">USER</button></li>
+                                                                <li><button className="dropdown-item">STAFF</button></li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="card-footer border border-0 d-flex justify-content-end">
+                            <nav aria-label="Page navigation" className="pagination-style-3">
+                                <ul className="pagination mb-0 flex-wrap">
+                                    <li className="page-item disabled">
+                                        <a className="page-link" href="javascript:void(0);">Prev</a>
+                                    </li>
+                                    <li className="page-item active"><a className="page-link" href="javascript:void(0);">1</a></li>
+                                    <li className="page-item"><a className="page-link" href="javascript:void(0);">2</a></li>
+                                    <li className="page-item">
+                                        <a className="page-link" href="javascript:void(0);">
+                                            <i className="bi bi-three-dots"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" data-bs-original-title="delete">
-                                            <i class="las la-trash"></i>
-                                        </a>
-                                        <div class="btn-group dropup my-1">
-                                        
-                                    </div>
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
+                                    </li>
+                                    <li className="page-item"><a className="page-link" href="javascript:void(0);">16</a></li>
+                                    <li className="page-item">
+                                        <a className="page-link text-primary" href="javascript:void(0);">next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
-                    </div>
-            </div>
-            <div class="card-footer border border-0 d-flex justify-content-end">
-                    <nav aria-label="Page navigation" class="pagination-style-3">
-                        <ul class="pagination mb-0 flex-wrap">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="javascript:void(0);">
-                                    Prev
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">
-                                    <i class="bi bi-three-dots"></i>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">16</a></li>
-                            <li class="page-item">
-                                <a class="page-link text-primary" href="javascript:void(0);">
-                                    next
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-            </div>
-         </div>
-    </div>
-  )
+                </div>
+            ) : (
+                <div>Chưa có tài khoản nào được đăng ký!</div> 
+            )}
+        </>
+    );
 }

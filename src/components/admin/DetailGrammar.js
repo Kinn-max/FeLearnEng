@@ -106,7 +106,7 @@ export default function DetailGrammar() {
           setContent("");
           setId(null);
           setImage(null);
-          ShowNotification("success", "Thành công", id ? "Cập nhật thành công" : "Thêm mới thành công"); // Hàm này cần được định nghĩa
+          ShowNotification("success", "Thành công", id ? "Cập nhật thành công" : "Thêm mới thành công"); 
       }
     } catch (error) {
       console.error("Error submitting the form", error);

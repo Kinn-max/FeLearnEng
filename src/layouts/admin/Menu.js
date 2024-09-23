@@ -12,6 +12,7 @@ export default function Menu() {
                 <div class="main-settings-menu">
                     <nav class="nav main-nav-column">
                         <Link className="nav-link thumb active mb-2" to="/admin/home"><i className="fe fe-home"></i> Main </Link>
+                        <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/order"}><i class="fe fe-grid"></i>Orders</Link>
                         <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/topic"}><i class="fe fe-grid"></i> Topic</Link>
                         <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/category"}><i class="fe fe-bell"></i>Category</Link>
                         <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/paragraph"}><i class="fe fe-server"></i>Paragraph</Link>
@@ -19,6 +20,9 @@ export default function Menu() {
                         <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/grammar"}><i class="fe fe-layers"></i>Grammar</Link>
                         <Link class="nav-link border-top-0 thumb mb-2" to={"/admin/user-list"}><i class="fe fe-user"></i>User</Link>
                     </nav>
+                    <div class="btn-list">
+                        <Link class="btn btn-outline-primary" to={"/"}><i class="fe fe-log-in me-2"></i>Checkout</Link>
+                    </div>
                 </div>
             </div>
         </div>

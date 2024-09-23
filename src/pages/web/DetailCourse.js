@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react'
 import OtherCourse from '../../components/OtherCourse'
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../api/ProductApi';
+import Empty from '../../Utils/Empty';
+import ShowNotification from '../../Utils/Notification';
+import { addCartApi } from '../../api/AddCartApi';
 
 export default function DetailCourse() {
     const [loading, setLoading] = useState(false);
-    const [product, setProduct] = useState(null); // Initialize as null
+    const [product, setProduct] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [price, setPrice] = useState(null);
     const { id } = useParams();
 
     useEffect(() => {
@@ -15,6 +20,7 @@ export default function DetailCourse() {
                 const data = await getProductById(id);
                 if (data) {
                     setProduct(data);
+                    setPrice(data.price); 
                 }
             } catch (error) {
                 console.log(error);
@@ -24,59 +30,111 @@ export default function DetailCourse() {
         };
 
         fetchProduct();
-    }, [id]); // Add `id` to the dependency array
+    }, [id]); 
+
+    const handlePlus = () => {
+        setQuantity(prevQuantity => prevQuantity + 1);
+    };
+
+    const handleMinus = () => {
+        setQuantity(prevQuantity => Math.max(prevQuantity - 1, 1)); 
+    };
+
+    const handleAddCart = async (e) => {
+        e.preventDefault();
+        if (!product || !price) {
+            ShowNotification("error", "Lỗi", "Thông tin sản phẩm không hợp lệ");
+            return;
+        }
+
+        const data = {
+            idProduct: id,
+            price: price,
+            numberOfProducts: quantity,
+            totalMoney: price * quantity
+        };
+        try {
+            const response = await addCartApi(data);
+            if (response) {
+                ShowNotification("success", "Thành công", "Sản phẩm đã được thêm vào giỏ hàng");
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
+        }
+    };
 
     if (loading) {
-        return <div>Loading...</div>; // Display a loading state
-    }
-
-    if (!product) {
-        return <div>Product not found</div>; // Handle case where product is not yet loaded or doesn't exist
+        return <div>Loading...</div>;
     }
 
     return (
-        <div className='container'>
-            <div className="row">
-                <div className="col-xl-12">
-                    <div className="card">
-                        <div className="card-body h-100">
-                            <div className="row text-start ">
-                                <div className="col-xl-5 col-lg-12 col-md-12">
-                                    <div className="product-carousel  border br-5">
-                                        <div id="Slider" className="carousel slide" data-bs-ride="false">
-                                            <div className="carousel-inner py-3">
-                                                <div className="carousel-item active">
-                                                    <img src={`data:image/jpeg;base64,${product.image}`} alt="img" className="img-fluid mx-auto d-block" />
+        <>
+        {product ? ( 
+            <div className='container'>
+                <div className="row">
+                    <div className="col-xl-12">
+                        <div className="card">
+                            <div className="card-body h-100">
+                                <div className="row text-start ">
+                                    <div className="col-xl-5 col-lg-12 col-md-12">
+                                        <div className="product-carousel  border br-5">
+                                            <div id="Slider" className="carousel slide" data-bs-ride="false">
+                                                <div className="carousel-inner py-3">
+                                                    <div className="carousel-item active">
+                                                        <img src={`data:image/jpeg;base64,${product.image}`} alt="img" className="img-fluid mx-auto d-block" />
+                                                    </div>
                                                 </div>
-                                                {/* Additional carousel items */}
                                             </div>
                                         </div>
                                     </div>
-                                    {/* Carousel controls */}
-                                </div>
-                                <div className="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
-                                    <h5 className="product-title mb-1">{product.name}</h5>
-                                    <h6 className="price fs-14">Giá bán: <span className="h4 ms-2 d-inline-block text-danger">{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span></h6>
-                                    <p className="product-description">{product.description}</p>
-
-                                    <div className="action mt-4">
-                                        <a href="wish-list.html" className="add-to-cart btn btn-danger my-1 me-1">ADD TO WISHLIST</a>
-                                        <a href="product-cart.html" className="add-to-cart btn btn-success">ADD TO CART</a>
+                                    <div className="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
+                                        <h5 className="product-title mb-1">{product.name}</h5>
+                                        <h6 className="price fs-14">Giá bán: 
+                                            <span className="h4 ms-2 d-inline-block text-danger">
+                                                {price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            </span>
+                                        </h6>
+                                        <p className="product-description">{product.description}</p>
+                                         <div className="col-xl-2">
+                                            <div className="handle-counter input-group rounded flex-nowrap">
+                                                <button className="btn btn-icon btn-light input-group-text product-quantity-minus"
+                                                    onClick={handleMinus}>
+                                                    <i className="ri-subtract-line"></i>
+                                                </button>
+                                                <input type="text" className="form-control form-control-sm text-center" aria-label="quantity" id="product-quantity2" value={quantity} readOnly/>
+                                                <button className="btn btn-icon btn-light input-group-text product-quantity-plus"
+                                                    onClick={handlePlus}>
+                                                    <i className="ri-add-line"></i>
+                                                </button>
+                                             </div>
+                                         </div>
+                                        <div className="action mt-4">
+                                            <a href="wish-list.html" className="add-to-cart btn btn-danger my-1 me-1">Mua ngay</a>
+                                            <button onClick={handleAddCart} className="add-to-cart btn btn-primary">Thêm vào giỏ hàng</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <h3 className='text-title'>KHÓA HỌC GỢI Ý</h3>
+                <div className="row related-products-ltr-l">
+                    <OtherCourse />
+                    <OtherCourse />
+                    <OtherCourse />
+                    <OtherCourse />
+                    <OtherCourse />
+                </div>
             </div>
-            <h3 className='text-title'>KHÓA HỌC GỢI Ý</h3>
-            <div className="row related-products-ltr-l">
-                <OtherCourse />
-                <OtherCourse />
-                <OtherCourse />
-                <OtherCourse />
-                <OtherCourse />
+        ) : (
+            <div className='container d-flex '>
+                <div className='row justify-content-center'>
+                     <Empty/>
+                </div>
             </div>
-        </div>
+        )}
+        </>
     );
 }

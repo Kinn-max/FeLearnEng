@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ItemVocabulary from "../../components/web/items/ItemVocabulary";
-import { getAllItemOfCategory } from "../../api/CategoryApi";
+import { getAllItemOfCategory, getAllItemOfCategoryAndStatus } from "../../api/CategoryApi";
 
 function ListVocabulary(){
     const [listCategory, setListCategory] = useState([]);
@@ -10,7 +10,7 @@ function ListVocabulary(){
         const fetchCategories = async () => {
             setLoading(true);
             try {
-                const data = await getAllItemOfCategory("vocabulary");
+                const data = await getAllItemOfCategoryAndStatus("vocabulary");
                 if (data) {
                     setListCategory(data);
                 }
