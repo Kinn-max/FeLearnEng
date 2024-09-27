@@ -66,7 +66,7 @@ const AnswerChart = () => {
             <div className="card-body">
               {listQuestion.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className='list-group px-5 pb-3'>{item.question}</div>
+                  <div className='list-group px-5 pb-3'> {index+1}. {item.question}</div>
                   <div className='list-group d-flex justify-content-between w-100 px-5'>
                     {[item.answerA, item.answerB, item.answerC, item.answerD].map((answer, answerIndex) => {
                       const answerKey = String.fromCharCode(65 + answerIndex);

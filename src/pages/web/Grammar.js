@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import ItemCategory from '../../components/web/items/ItemCategory'
 import { Link } from 'react-router-dom'
 import { getAllItemOfCategory } from '../../api/CategoryApi';
+import {  getGrammarRandom } from '../../api/GrammarApi';
 
 export default function Grammar() {
     const [listCategory, setListCategory] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [listProduct, setListProduct] = useState({}); 
+    const [listBlog,setListBlog] = useState([])
     useEffect(() => {
         const fetchCategories = async () => {
-            setLoading(true);
             try {
                 const data = await getAllItemOfCategory("grammar");
                 if (data) {
@@ -17,14 +16,25 @@ export default function Grammar() {
                 }
             } catch (error) {
                 console.log(error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         fetchCategories();
     }, []);
-    console.log(listCategory)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getGrammarRandom();
+                if (data) {
+                    setListBlog(data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
   return (
     <div className='container text-start'>
             <div class="row">
@@ -46,117 +56,29 @@ export default function Grammar() {
                         </div>
                     </div>
                 </div>
-                    <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-12">
-                         <Link to={"/grammar/detail"}>
-                        <div class="card custom-card">
-                            <a href="blog-details.html">
-                                <img class="card-img-top w-100 w-100" src="../assets/images/media/media-85.jpg" alt=""/>
-                            </a>
-                            <div class="card-body">
-                                <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Best Place To visit For a Holiday idea of denouncing pleasure?</h5></a>
-                                <p class="mb-0 mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</p>
-
-                            </div>
-                            <div class="card-footer p-3">
-                                <div class="item7-card-desc d-sm-flex mt-0">
-                                    <a href="javascript:void(0);" class="d-flex"><span class="fe fe-user text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Anna Ogden</div></a>
-                                    <div class="d-flex ms-auto">
-                                        <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
-                                        <a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a>
+                {listBlog.map((item,index)=>(
+                         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-12">
+                    <Link to={`/blog/${item.id}`}>
+                            <div class="card custom-card" style={{height:"380px"}}>
+                                <Link to={`/blog/${item.id}`} >
+                                    <div style={{height:"200px"}}>
+                                        <img class="card-img-top w-100 w-100 h-100" src={`data:image/jpeg;base64,${item.image}`}  alt=""/>
+                                    </div>
+                                </Link>
+                                <div class="card-body pb-0">
+                                    <Link to={`/blog/${item.id}`}class="mt-4"><h5 class=" text-dark">{item.name}</h5></Link>
+                                </div>
+                                <div class="card-footer p-3">
+                                    <div class="item7-card-desc d-sm-flex mt-0">
+                                        <div class="d-flex ms-auto">
+                                            <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                      </Link> 
+                    </Link> 
                     </div>
-                    <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-12">
-                         <Link to={"/grammar/detail"}>
-                        <div class="card custom-card">
-                            <a href="blog-details.html">
-                                <img class="card-img-top w-100 w-100" src="../assets/images/media/media-85.jpg" alt=""/>
-                            </a>
-                            <div class="card-body">
-                                <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Best Place To visit For a Holiday idea of denouncing pleasure?</h5></a>
-                                <p class="mb-0 mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</p>
-
-                            </div>
-                            <div class="card-footer p-3">
-                                <div class="item7-card-desc d-sm-flex mt-0">
-                                    <a href="javascript:void(0);" class="d-flex"><span class="fe fe-user text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Anna Ogden</div></a>
-                                    <div class="d-flex ms-auto">
-                                        <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
-                                        <a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </Link> 
-                    </div>
-            </div>
-            <div className='row'>
-                  <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-12">
-                    <div class="card custom-card">
-                        <a href="blog-details.html">
-                            <img class="card-img-top w-100 w-100" src="../assets/images/media/media-85.jpg" alt=""/>
-                        </a>
-                        <div class="card-body">
-                            <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Best Place To visit For a Holiday idea of denouncing pleasure?</h5></a>
-                            <p class="mb-0 mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</p>
-
-                        </div>
-                        <div class="card-footer p-3">
-                            <div class="item7-card-desc d-sm-flex mt-0">
-                                <a href="javascript:void(0);" class="d-flex"><span class="fe fe-user text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Anna Ogden</div></a>
-                                <div class="d-flex ms-auto">
-                                    <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
-                                    <a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-12">
-                    <div class="card custom-card">
-                        <a href="blog-details.html">
-                            <img class="card-img-top w-100 w-100" src="../assets/images/media/media-85.jpg" alt=""/>
-                        </a>
-                        <div class="card-body">
-                            <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Best Place To visit For a Holiday idea of denouncing pleasure?</h5></a>
-                            <p class="mb-0 mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</p>
-
-                        </div>
-                        <div class="card-footer p-3">
-                            <div class="item7-card-desc d-sm-flex mt-0">
-                                <a href="javascript:void(0);" class="d-flex"><span class="fe fe-user text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Anna Ogden</div></a>
-                                <div class="d-flex ms-auto">
-                                    <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
-                                    <a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-12">
-                    <div class="card custom-card">
-                        <a href="blog-details.html">
-                            <img class="card-img-top w-100 w-100" src="../assets/images/media/media-85.jpg" alt=""/>
-                        </a>
-                        <div class="card-body">
-                            <a href="javascript:void(0);" class="mt-4"><h5 class="font-weight-semibold text-dark">Best Place To visit For a Holiday idea of denouncing pleasure?</h5></a>
-                            <p class="mb-0 mt-3">I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure.</p>
-
-                        </div>
-                        <div class="card-footer p-3">
-                            <div class="item7-card-desc d-sm-flex mt-0">
-                                <a href="javascript:void(0);" class="d-flex"><span class="fe fe-user text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Anna Ogden</div></a>
-                                <div class="d-flex ms-auto">
-                                    <a href="javascript:void(0);" class="d-flex me-3"><span class="fe fe-calendar text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">Jan-18-2020</div></a>
-                                    <a class="me-0 d-flex" href="javascript:void(0);"><span class="fe fe-message-square text-muted me-2 fs-17"></span><div class="mt-0 mt-0  font-weight-semibold text-muted">12 Comments</div></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
     </div>
   )

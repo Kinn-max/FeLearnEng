@@ -7,14 +7,10 @@ export default function Footer() {
                     <div class="row">
                         <div class="col-xl-4">
                             <div class="px-4">
-                                <p class="fw-semibold mb-3"><a href="index.html"><img src="../assets/images/brand-logos/desktop-white.png" alt="" class="logo-img"/></a></p>
+                                <p class="fw-semibold mb-3"><img src="../assets/images/logo.png" alt="" style={{width: "200px"}} class="logo-img"/></p>
                                 <p class="mb-3 op-6 fw-normal">
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit et magnam, fuga est mollitia eius, quo illum illo inventore optio aut quas omnis rem. Dolores accusantium aspernatur minus ea incidunt.
                                 </p>
-                                <div class="input-group"> 
-                                    <input type="text" class="form-control bg-transparent text-fixed-white" placeholder="Enter your email" aria-label="Example text with button addon" aria-describedby="button-addon2"/> 
-                                     <button class="btn btn-primary" type="button" id="button-addon2">Submit</button> 
-                                </div>
                             </div>
                         </div>
                         <div class="col-xl-2">
@@ -110,6 +106,6 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-            </section>
+     </section>
   )
 }

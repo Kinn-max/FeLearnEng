@@ -15,6 +15,22 @@ export async function getAllGrammarByCategoryId(id) {
     }
     return null;
 }
+export async function getGrammarRandom() {
+    const link = `http://localhost:8080/api/grammar/random`;
+
+    try {
+        const response = await fetch(link);
+        if(response.ok){
+            const data = await response.json();
+            return data;  
+        } else {
+            console.error('Failed to fetch data:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error(error); 
+    }
+    return null;
+}
 export async function createBlog(data) {
     const link = `http://localhost:8080/api/grammar`;
     const token = localStorage.getItem('jwtToken');
@@ -104,3 +120,4 @@ export async function deleteBlog(data) {
     }
     return null;
 }
+

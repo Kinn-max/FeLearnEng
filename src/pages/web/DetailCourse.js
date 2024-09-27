@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import OtherCourse from '../../components/OtherCourse'
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../../api/ProductApi';
+import { getProductById, getRanDomProduct } from '../../api/ProductApi';
 import Empty from '../../Utils/Empty';
 import ShowNotification from '../../Utils/Notification';
 import { addCartApi } from '../../api/AddCartApi';
@@ -11,6 +11,7 @@ export default function DetailCourse() {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(null);
+    const [listProduct,setListProduct] =useState([]);
     const { id } = useParams();
 
     useEffect(() => {
@@ -63,7 +64,21 @@ export default function DetailCourse() {
             ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
         }
     };
-
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const data = await getRanDomProduct();
+                console.log(data)
+                if (data) {
+                    setListProduct(data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -121,11 +136,9 @@ export default function DetailCourse() {
                 </div>
                 <h3 className='text-title'>KHÓA HỌC GỢI Ý</h3>
                 <div className="row related-products-ltr-l">
-                    <OtherCourse />
-                    <OtherCourse />
-                    <OtherCourse />
-                    <OtherCourse />
-                    <OtherCourse />
+                    {listProduct.map((item,index)=>(
+                          <OtherCourse key={index} item={item} />
+                    ))}
                 </div>
             </div>
         ) : (

@@ -52,7 +52,7 @@ export default function ListCourse() {
         return <div className="text-center mt-5">Đang tải...</div>; 
     }
     return (
-        <div className="card custom-card">
+        <div className="card custom-card pb-5">
             {listCategory.map((item, index) => (
                 <div key={index} className="row d-flex row-sm">
                     <div className="card-header px-3 pb-3 justify-content-between">
@@ -61,11 +61,11 @@ export default function ListCourse() {
                         </div>
                     </div>
                     {listProduct[item.id]?.map((product, idx) => (
-                       <div key={idx} className="col-md-4 col-lg-3 col-xl-3 col-sm-3" style={{height: "320px"}}>
-						   <div className="border">
+                       <div key={idx} className="col-md-4 col-lg-3 col-xl-3 col-sm-3" >
+						   <div className="border" style={{height: "320px"}}>
 							   <div className="card-body  h-100" >
 								   <div className="pro-img-box">
-								  		<Link to={`/book/detail/${product.id}`}>
+								  		<Link to={`/book-detail/${product.id}`}>
 										   <img className="w-100 rounded-3"style={{ maxWidth: '150px' ,height:"150px"}}  src={`data:image/jpeg;base64,${product.image}`} alt="product-image" />
 									  	</Link>
 									   <div href="product-cart.html" className="adtocart">

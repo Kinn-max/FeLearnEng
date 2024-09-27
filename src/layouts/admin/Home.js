@@ -106,12 +106,17 @@ export default function Home() {
                                          <th scope="col" style={{ width: '10%' }}>Email</th>
                                          <th scope="col">Sđt
                                          </th>
+                                         <th scope="col">Ngày đặt
+                                         </th>
                                          <th scope="col">Trạng thái</th>
                                          <th scope="col">Tùy chỉnh</th>
                                      </tr>
                                  </thead>
                                  <tbody>
-                                     {listOrder.map((item,index)=>(
+                                     {listOrder.map((item,index)=>{
+                                         const date = new Date(item.orderDate)
+                                         const formattedDate = date.toLocaleString();
+                                        return(
                                          <tr>
                                              <td>{index+1}</td>
                                              <td>
@@ -120,6 +125,9 @@ export default function Home() {
                                              <td>{item.email}</td>
                                              <td >
                                                  {item.phoneNumber}  
+                                             </td>
+                                             <td >
+                                                 {formattedDate}  
                                              </td>
                                              <td><td><span class="badge bg-success-transparent">{item.status}</span></td></td>
                                              <td> 
@@ -145,7 +153,9 @@ export default function Home() {
                                                  </div>
                                              </td>
                                          </tr>
-                                     ))}       
+
+                                        )
+                                     })}       
                                  </tbody>
                              </table>
                          </div>

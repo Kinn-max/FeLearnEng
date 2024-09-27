@@ -66,7 +66,7 @@ export default function Exam() {
                             ))}
                         </div>
                         <button
-                            onClick={() => navigate('/study/result', {
+                            onClick={() => navigate('/study-result', {
                                 state: { answers: listAnswer, id: id, listQuestion: listQuestion }
                             })}
                             className="btn btn-primary"

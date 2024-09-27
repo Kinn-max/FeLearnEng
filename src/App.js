@@ -13,7 +13,6 @@ import DetailGrammar from "./components/web/details/DetailGrammar";
 import DetailCourse from "./pages/web/DetailCourse";
 import DetailVocabulary from "./components/web/details/DetailVocabulary";
 import DetailVocabularyPractice from "./components/web/details/DetailVocabularyPractice";
-import DetailParagraph from "./components/web/details/DetailParagraph";
 import Exam from "./pages/web/Exam";
 //
 import AdminHome from "./pages/admin/AdminHome";
@@ -23,6 +22,9 @@ import Profile from './pages/web/Profile';
 import AnswerChart from './Utils/AnswerChart';
 import ConfirmAccount from './pages/ConfirmAccount';
 import CheckOut from './pages/web/CheckOut';
+import ListGrammar from './layouts/admin/ListGrammar';
+import GrammarList from './pages/web/GrammarList';
+import Blog from './pages/web/Blog';
 
 function App() {
   return (
@@ -57,13 +59,14 @@ function Content() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/grammar" element={<Grammar />} />
+        <Route path="/grammar/:id" element={<GrammarList />} />
+        <Route path="/blog/:id" element={<Blog />} />
         <Route path="/grammar/detail" element={<DetailGrammar />} />
-        <Route path="/book/detail/:id" element={<DetailCourse />} />
-        <Route path="/study/learn/:id" element={<DetailVocabulary />} />
-        <Route path="/study/practice/:id" element={<DetailVocabularyPractice />} />
-        <Route path="/study/result" element={<AnswerChart />} />
-        <Route path="/study/paragraph-practice" element={<DetailParagraph />} />
-        <Route path="/study/exam/:id" element={<Exam />} />
+        <Route path="/book-detail/:id" element={<DetailCourse />} />
+        <Route path="/study-learn/:id" element={<DetailVocabulary />} />
+        <Route path="/study-practice/:id" element={<DetailVocabularyPractice />} />
+        <Route path="/study-result" element={<AnswerChart />} />
+        <Route path="/study-exam/:id" element={<Exam />} />
       </Routes>
       <Routes>
         <Route path="/admin/*" element={<AdminHome />} />

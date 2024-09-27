@@ -4,6 +4,8 @@ import { getAllOrder, orderStatusConfirm } from '../../api/OrderApi';
 export default function Order() {
     const [listOrder,setListOrder] = useState([])
     const [change,setChange] = useState(false)
+    const [showModel,setShowModel] = useState(false)
+    const [selectedOrder, setSelectedOrder] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -27,6 +29,15 @@ export default function Order() {
             
         }
     }
+    const handleShowOrderDetails = (order) => {
+        setSelectedOrder(order); 
+        setShowModel(true); 
+    };
+
+    const handleCloseModal = () => {
+        setShowModel(false);
+        setSelectedOrder(null); 
+    };
   return (
         <div className="card custom-card">
                 <div className="card-header px-5 pt-5 pb-3 justify-content-between">
@@ -88,8 +99,12 @@ export default function Order() {
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <button  className="btn mx-1 btn-sm btn-primary" data-bs-toggle="tooltip" title="Tùy chỉnh">
-                                                                <i className="las la-search"></i>
+                                                            <button className="btn mx-1 btn-sm btn-primary"
+                                                                    onClick={() => handleShowOrderDetails(item)} 
+                                                                    data-bs-toggle="tooltip"
+                                                                    title="Xem chi tiết"
+                                                                >
+                                                                    <i className="las la-search"></i>
                                                             </button>
                                                             <div className="btn btn-sm btn-success">
                                                                 <button 
@@ -138,6 +153,49 @@ export default function Order() {
                         </nav>
                     </div>
                 </div>
+                {showModel && selectedOrder && (
+                <div className="modal fade show" style={{ display: "block" }}>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5">Chi tiết đơn hàng</h1>
+                                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+                            </div>
+                            <div className="modal-body text-start">
+                                <div className='d-flex callout callout-warning justify-content-between'>
+                                    <div>
+                                        <p>Người đặt:{selectedOrder.fullName}</p>
+                                        <p>Email: {selectedOrder.email}</p>
+                                    </div>
+                                    <div>
+
+                                    <p>Số điện thoại: {selectedOrder.phoneNumber}</p>
+                                    <p>Ngày đặt: {new Date(selectedOrder.orderDate).toLocaleString()}</p>
+                                    </div>
+                                </div>
+                                <p>Giao tới: {selectedOrder.shippingAddress}</p>
+                                <p>Phương thức thanh toán: {selectedOrder.paymentMethod}</p>
+                                <p>Phương thức giao hàng: {selectedOrder.shippingMethod}</p>
+                                <p>Sản phẩm gồm:
+                                <ul>
+                                    {
+                                        selectedOrder.orderDetailEntityList && selectedOrder.orderDetailEntityList.map((item, index) => (
+                                            <li key={index}>{item.name} ({item.numberOfProducts} x {item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}) = {item.totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>
+                                        ))
+                                    }
+                                </ul>
+                                </p>
+                                <p>Tổng: {selectedOrder.totalMoney.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                                <p>Trạng thái: {selectedOrder.status}</p>
+                                
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
   )
 }

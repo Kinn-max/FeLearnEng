@@ -7,24 +7,6 @@ import { Link, useParams } from 'react-router-dom';
 import { getAllVocabularyByCategoryById, getAllVocabularyByCategoryByIdAndStatus } from '../../../api/VocabularyApi';
 import Empty from '../../../Utils/Empty';
 
-// const cards = [
-//   {
-//     english: { name: "Sound", image: "sound.jpg", transcription: "/sound/", part: "N", example: "The sound of the waves crashing on the shore was very soothing.", sound: "sound.mp3" },
-//     vietnamese: { name: "Âm thanh", part: "Danh từ" }
-//   },
-//   {
-//     english: { name: "Note", image: "note.jpg", transcription: "/nōt/", part: "N", example: "In the A minor scale, the notes are A, B, C, D, E, F, G, A.", sound: "note.mp3" },
-//     vietnamese: { name: "Nốt", part: "Danh từ" }
-//   },
-//   {
-//     english: { name: "Lyric", image: "lyric.jpg", transcription: "/ˈlirik/", part: "N", example: "The lyrics of the song were very touching.", sound: "lyric.mp3" },
-//     vietnamese: { name: "Lời bài hát", part: "Danh từ" }
-//   },
-//   {
-//     english: { name: "Music", image: "music.jpg", transcription: "/ˈmyo͞ozik/", part: "N", example: "Classical music helps me concentrate while studying.", sound: "music.mp3" },
-//     vietnamese: { name: "Âm nhạc", part: "Danh từ" }
-//   },
-// ];
 
 const DetailVocabulary = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,7 +17,7 @@ const DetailVocabulary = () => {
   const [cards,setCard] = useState([])
   const [loading, setLoading] = useState(false);
 
-  const progress = useMemo(() => ((currentIndex + 1) / cards.length) * 100, [currentIndex]);
+  const progress = useMemo(() => ((currentIndex + 1) / cards.length) * 100, [currentIndex, cards.length]);
 
   const handleFlip = useCallback(() => setIsFlipped(prev => !prev), []);
 
@@ -132,9 +114,9 @@ if (loading) {
                             </div>
                           </div>
                           <div className="flip-card-back">
-                            <div className="row text-start g-0">
+                            <div className="row text-start g-0 px-3">
                               <div className="col-md-4">
-                                <img style={{  height:"50px"}} src={`data:image/jpeg;base64,${card.image}`} className="img-fluid  rounded h-100 w-100" alt={card.vietnamese} />
+                                <img  src={`data:image/jpeg;base64,${card.image}`} className="img-fluid  rounded h-100 w-100" alt={card.vietnamese} />
                               </div>
                               <div className="col-md-8">
                                 <div className="card-header">

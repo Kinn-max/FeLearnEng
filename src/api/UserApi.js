@@ -173,8 +173,8 @@ export async function getUserById(id) {
     }
     return null;
 }
-export async function getByUser(id) {
-    const link = `http://localhost:8080/api/user/${id}`;
+export async function getByToken(id) {
+    const link = `http://localhost:8080/api/user/by-token`;
     const token = localStorage.getItem('jwtToken');
     try {
         const response = await fetch(link, {
@@ -187,10 +187,61 @@ export async function getByUser(id) {
 
         if (response.ok) {
             const data = await response.json();
-            return data.data;
+            return data;
         } else {
             const errorText = await response.json();
             return { message: errorText };
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    return null;
+}
+export async function updateUser(data) {
+    const link = `http://localhost:8080/api/user/by-token`;
+    const token = localStorage.getItem('jwtToken');
+    try {
+        const response = await fetch(link, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            return true;
+        } else {
+            ShowNotification("error", "Thật bại", "Lỗi xảy ra");
+            return null;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    return null;
+}
+export async function setRoleOfUser(role,id) {
+    const link = `http://localhost:8080/api/user/${role}/${id}`;
+    const token = localStorage.getItem('jwtToken');
+    try {
+        const response = await fetch(link, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ status: 'newStatus' })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return null;
+        } else {
+            ShowNotification("error", "Thật bại", "Lỗi xảy ra");
+            return null;
         }
     } catch (error) {
         console.error('Error:', error);

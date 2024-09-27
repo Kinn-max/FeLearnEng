@@ -7,22 +7,29 @@ export default function Banner() {
     <div class="landing-banner" id="home">
                 <section class="section">
                     <div class="container main-banner-container">
-                        <div style={{ backgroundImage: `url(${imageUrl})`, paddingBottom: '30px' }} class="row style-background  justify-content-center text-center">
+                        <div style={{
+                            backgroundImage: `url("https://cloudfour.com/wp-content/uploads/2019/10/circles-r2-1200x0-c-default.png")`,
+                            paddingBottom: '30px',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundSize: 'cover',
+                            position: 'relative'
+                             }} class="row style-background  justify-content-center text-center">
                             <div class="col-xxl-9 col-xl-9 col-lg-9 col-md-8">
-                                <div class="py-5 pb-lg-0">
+                                <div class="py-5 pb-lg-0 text-dark">
                                     <div class="mb-3">
                                         <h5 class="fw-semibold ">Học tiếng anh mỗi ngày</h5>
                                     </div>
-                                    <p class="landing-banner-heading mb-3">Xây dựng nền tảng tiếng anh !</p>
-                                    <div class="fs-16 mb-5"> Valex - Now you can use this admin template to design stunning dashboards that will wow your target viewers or users to no end. To create a good and well-structured dashboard, you need to start from scratch with HTML, SCSS, CSS, and JS and with lots of coding, but by using this Valex-Admin template.</div>
-                                    <a href="index.html" class="m-1 btn btn-primary">
+                                    <p class="landing-banner-heading mb-3">Change Your Habit, Change Your Life</p>
+                                    <div class="fs-16 mb-5"> "Kinn là trung tâm tiếng Anh giao tiếp DUY NHẤT trên thị trường cam kết chuẩn đầu ra theo CEFR. Không chỉ dừng lại ở việc đào tạo tiếng Anh, chúng tôi muốn truyền cảm hứng cho học viên, thay đổi niềm tin và thói quen để trở thành những người thành đạt có trách nhiệm với gia đình và xã hội!"</div>
+                                    <button  class="m-1 btn btn-primary">
                                         Discover More
                                         <i class="fe fe-eye ms-2 align-middle"></i>
-                                    </a>
-                                    <a href="index.html" class="m-1 btn btn-info">
+                                    </button>
+                                    <button  class="m-1 btn btn-info">
                                         Get Started
                                         <i class="fe fe-arrow-right ms-2 align-middle"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                             </div>
@@ -30,11 +37,8 @@ export default function Banner() {
                 </section>
                 <section class="section section-bg " id="features">
                 <div class="container text-center position-relative">
-                    <p class="fs-12 fw-semibold text-success mb-1">
-                        <span class="landing-section-heading">Features</span>
-                    </p>
                     <div class="landing-title"></div>
-                    <h3 class="fw-semibold mb-2">Valex Main Features</h3>
+                    <h3 class="fw-semibold mb-2 pt-5">Tầm nhìn & Sứ mệnh</h3>
                     <div class="row justify-content-center">
                         <div class="col-xl-7">
                             <p class="text-muted fs-15 mb-5 fw-normal">We are proud to have top class clients and customers,which motivates us to work more on projects.</p>
@@ -55,8 +59,8 @@ export default function Banner() {
                                             <path fill="#FFF" d="M93.5 52c1.8-1.8 1.8-4.7 0-6.5-1.3-1.3-1.7-3.3-1-5 1-2.4-.1-5-2.5-6-1.7-.7-2.8-2.4-2.8-4.3 0-2.5-2.1-4.6-4.6-4.6-1.9 0-3.5-1.1-4.3-2.8-1-2.4-3.7-3.5-6-2.5-1.7.7-3.7.3-5-1-1.8-1.8-4.7-1.8-6.5 0-1.3 1.3-3.3 1.7-5 1-2.4-1-5 .1-6 2.5-.7 1.7-2.4 2.8-4.3 2.8-2.5 0-4.6 2.1-4.6 4.6 0 1.9-1.1 3.5-2.8 4.3-2.4 1-3.5 3.7-2.5 6 .7 1.7.3 3.7-1 5-1.8 1.8-1.8 4.7 0 6.5 1.3 1.3 1.7 3.3 1 5-1 2.4.1 5 2.5 6 1.7.7 2.8 2.4 2.8 4.3 0 2.5 2.1 4.6 4.6 4.6 1.9 0 3.5 1.1 4.3 2.8 1 2.4 3.7 3.5 6 2.5 1.7-.7 3.7-.3 5 1 1.8 1.8 4.7 1.8 6.5 0 1.3-1.3 3.3-1.7 5-1 2.4 1 5-.1 6-2.5.7-1.7 2.4-2.8 4.3-2.8 2.5 0 4.6-2.1 4.6-4.6 0-1.9 1.1-3.5 2.8-4.3 2.4-1 3.5-3.7 2.5-6-.7-1.7-.3-3.7 1-5z"></path><path fill="#FFCD0A" d="M64 70.8c-12.2 0-22.1-9.9-22.1-22.1 0-12.2 9.9-22.1 22.1-22.1 12.2 0 22.1 9.9 22.1 22.1 0 12.2-9.9 22.1-22.1 22.1z"></path><path fill="#FFF" d="M59.9 61c-.6 0-1.1-.2-1.5-.7l-8.3-9.2c-.7-.8-.7-2.1.1-2.8.8-.7 2.1-.7 2.8.1l6.7 7.5 15.1-18.8c.7-.9 2-1 2.8-.3.9.7 1 2 .3 2.8L61.4 60.2c-.3.5-.9.8-1.5.8z"></path></svg> 
                                         </div> 
                                         <div> 
-                                            <h5 class="fw-bold">Quality &amp; Clean Code</h5> 
-                                            <p class="mb-0">The Valex admin code is maintained very cleanly and well-structured with proper comments. </p>
+                                            <h5 class="fw-bold">Chất lượng cao</h5> 
+                                            <p class="mb-0">Đảm bảo chất lượng sử dụng được chỉ sau mỗi cấp độ </p>
                                         </div> 
                                     </div>
                                 </div>
@@ -70,8 +74,8 @@ export default function Banner() {
                                             </svg> 
                                         </div> 
                                         <div> 
-                                            <h5 class="fw-bold">Multiple Demos</h5> 
-                                            <p class="mb-0"> We included multiple demos, preview video, and screen shots to give a quick overview of our Valex admin template.</p>
+                                            <h5 class="fw-bold">Cung cấp nhiều kỹ năng</h5> 
+                                            <p class="mb-0"> Phương pháp hiện đại, thực tế – Đạt hiệu quả cao</p>
                                         </div> 
                                     </div> 
                                 </div>
@@ -82,8 +86,8 @@ export default function Banner() {
                                             </svg> 
                                         </div> 
                                         <div> 
-                                            <h5 class="fw-bold">Widgets</h5> 
-                                            <p class="mb-0"> 30+ widgets are included in this template. Please check out the best option that suits you. </p>
+                                            <h5 class="fw-bold">Bước chuẩn bị vững chắc</h5> 
+                                            <p class="mb-0">Thân thiện, hòa đồng – Phòng rộng rãi, thoáng mát, máy lạnh 100%</p>
                                         </div> 
                                     </div>
                                 </div>
@@ -94,8 +98,8 @@ export default function Banner() {
                                             </svg> 
                                         </div> 
                                         <div> 
-                                            <h5 class="fw-bold">Validation Forms</h5> 
-                                            <p class="mb-0"> Different types of “Form Validation” are implemented in this Valex admin template and used strict validation rules. </p>
+                                            <h5 class="fw-bold">UY TÍN LÂU NĂM</h5> 
+                                            <p class="mb-0"> Hơn 23 năm uy tín giảng dạy ngoại ngữ Anh-Hàn-Hoa-Nhật</p>
                                         </div> 
                                     </div>
                                 </div>
@@ -107,13 +111,11 @@ export default function Banner() {
                 </section>
                 <section class="section " id="about">
                     <div class="container text-center">
-                        <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">Our Mission</span>
-                        </p>
                         <div class="landing-title"></div>
-                        <h3 class="fw-semibold mb-2"> Our mission is to make work meaningful. </h3>
+                        <h3 class="fw-semibold mb-2">Ngoại ngữ Kinn</h3>
                         <div class="row justify-content-center">
                             <div class="col-xl-7">
-                                <p class="text-muted fs-15 mb-3 fw-normal">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est dui, rutrum in nulla eu,</p>
+                                <p class="text-muted fs-15 mb-3 fw-normal">Giảng viên tiêu biểu</p>
                             </div>
                         </div> 
                         <div class="row justify-content-center align-items-center mx-0">
@@ -121,7 +123,7 @@ export default function Banner() {
                                 <img src="../assets/images/dai_dien2.png" alt="" class="img-fluid"/>
                             </div>
                             <div class="col-xxl-8 col-xl-7 col-lg-7 pt-5 pb-0 px-lg-2 px-5 text-start">
-                                <h4 class="text-lg-start fw-medium mb-4">We are a creative agency with a passion for design. </h4>
+                                <h4 class="text-lg-start fw-medium mb-4">NEWSKY luôn phấn đấu vì một môi trường giáo dục ngoại ngữ tốt nhất cho giáo viên và học viên.</h4>
                                 <div class="row">
                                     <div class="col-12 col-md-12">
                                         <div class="d-flex mb-2">
@@ -129,8 +131,8 @@ export default function Banner() {
                                                 <i class="bx bxs-badge-check text-primary fs-18"></i>
                                             </span>
                                             <div class="ms-2">
-                                                <h6 class="fw-medium mb-0">Quality &amp; Clean Code </h6>
-                                                <p class=" text-muted mb-3"> The Valex admin code is maintained very cleanly and well-structured with proper comments. </p>
+                                                <h6 class="fw-medium mb-0">HỌC TẠI TRUNG TÂM (OFFLINE)</h6>
+                                                <p class=" text-muted mb-3"> Tham gia học ngoại ngữ trực tiếp tại các cơ sở của trung tâm để được dễ dàng tương tác với giáo viên & các bạn học viên khác trong lớp học.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -140,8 +142,8 @@ export default function Banner() {
                                                 <i class="bx bxs-badge-check text-primary fs-18"></i>
                                             </span>
                                             <div class="ms-2">
-                                                <h6 class="fw-medium mb-0">Well Documented</h6>
-                                                <p class=" text-muted mb-3"> The documentation provides clear-cut material for the Valex admin template. The documentation is explained or instructed in such a way that every user can understand. </p>
+                                                <h6 class="fw-medium mb-0">HỌC TRỰC TUYẾN (ONLINE)</h6>
+                                                <p class=" text-muted mb-3"> Với khóa học trực tuyến, học viên có thể học ngoại ngữ ở mọi nơi trên tất cả các thiết bị laptop, điện thoại hay máy tính bảng.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -151,8 +153,8 @@ export default function Banner() {
                                                 <i class="bx bxs-badge-check text-primary fs-18"></i>
                                             </span>
                                             <div class="ms-2">
-                                                <h6 class="fw-medium mb-0">Switch Easily From One Color to Another Color style</h6>
-                                                <p class=" text-muted">lorem ipsum, dolor sit var ameto condesetrat aiatel varen or damsenlel verman code Lorem ipsum, dolor sit amet consectetur </p>
+                                                <h6 class="fw-medium mb-0">HỌC KÈM TẠI NHÀ</h6>
+                                                <p class=" text-muted">Học 1 kèm 1 (hoặc Nhóm) tại Nhà với </p>
                                             </div>
                                         </div>
                                     </div>
@@ -163,10 +165,8 @@ export default function Banner() {
                 </section>
                 <section class="section section-bg " id="statistics">
                 <div class="container text-center">
-                    <p class="fs-12 fw-semibold text-success mb-1"><span class="landing-section-heading">Statistics</span>
-                    </p>
                     <div class="landing-title"></div>
-                    <h3 class="fw-semibold mb-2">More than 120+ projects completed.</h3>
+                    <h3 class="fw-semibold mb-2">Hơn 1200 học viên đang theo học</h3>
                     <div class="row justify-content-center mb-5">
                         <div class="col-xl-7">
                             <p class="text-muted fs-15mb-0 fw-normal">We are proud to have top class clients and customers,which motivates us to work more on projects.</p>

@@ -15,8 +15,7 @@ export default function AdminHome() {
       const userData = jwtDecode(token);
       if (userData && userData.role) {
         setRole(userData.role);
-        console.log(userData.role)
-        if (userData.role !== 'ADMIN') {
+        if (userData.role !== 'ADMIN' && userData.role !=="STAFF") {
           ShowNotification("error","You do not have permission to access this page!","")
         }
       }
@@ -24,7 +23,7 @@ export default function AdminHome() {
   }, []);
   return (
     <>
-      {role === 'ADMIN' ? (
+      {(role === 'ADMIN' || role === "STAFF") ? (
         <>
           <AdminHeader />
           <div className='row text-start mt-3 px-3'>

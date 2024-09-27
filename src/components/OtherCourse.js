@@ -1,29 +1,30 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export default function OtherCourse() {
+export default function OtherCourse({item}) {
   return (
-    <div class="col-xl-3 col-md-6">
-        <div class="card item-card">
-            <div class="card-body pb-0 h-100">
-                <div class="text-center">
-                    <img src="../assets/images/ecommerce/08.jpg" alt="img" class="img-fluid w-100 rounded-3"/>
-                </div>
-                <div class="card-body relative product-des">
-                    <div class="cardtitle">
-                        <span>Accessories</span>
-                        <a>Metal Watch</a>
-                    </div>
-                    <div class="cardprice">
-                        <span class="type--strikethrough">$999</span>
-                        <span>$799</span>
-                    </div>
-                </div>
+    <div class="col-xl-3 col-md-6 my-2">
+       <div class="card  item-card " style={{ height: "370px"}}>
+        <div class="card-body pb-0">
+            <div class="d-flex justify-content-center align-items-center" style={{ width: "150px", height: "150px", margin: "0 auto" }}>
+            <img src={`data:image/jpeg;base64,${item.image}`} alt="img" class="w-100 h-100" />
             </div>
-            <div class="text-center border-top py-3 px-2 ">
-                <a href="products.html" class="btn btn-primary my-1"><i class="fe fe-eye me-1"></i> View More</a>
-                <a href="product-cart.html" class="btn btn-success"><i class="fe fe-shopping-cart me-1"></i> Add to cart</a>
+            <div class="card-body p-0 pt-4">
+            <div class="cardtitle text-start">
+                <span className='fs-6'>{item.name}</span>
+            </div>
+            <div class="cardprice text-end">
+                <span className='fs-5 text-danger fw-semibold'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+            </div>
             </div>
         </div>
+        <div class="text-center border-top py-3 px-2">
+            <Link to={"/book-detail/" + item.id} class="btn btn-primary my-1">
+            <i class="fe fe-eye me-1"></i> View More
+            </Link>
+        </div>
+        </div>
+
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function Login() {
                     const userData = jwtDecode(token);
                     if (userData && userData.role) {
                         console.log(userData.role)
-                        if (userData.role === 'ADMIN') {
+                        if (userData.role === 'ADMIN'|| userData.role === "STAFF") {
                             setTimeout(() => {
                                 window.location.href = '/admin/home'; 
                             }, 2000); 
@@ -49,7 +49,7 @@ export default function Login() {
         <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent-3">
             <div class="row w-100 mx-auto text-center">
                 <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto w-100">
-                    <img src="../assets/images/media/pngs/5.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo"/>
+                    <img src="https://images.pexels.com/photos/16890650/pexels-photo-16890650/free-photo-of-colorful-texts-on-directional-boards.jpeg?auto=compress&cs=tinysrgb&w=600" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo"/>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@ export default function Login() {
                         <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
                             <div class="card-sigin">
                                 <div class="mb-5 d-flex">
-                                    <a href="/home" class="header-logo"><img src="../assets/images/brand-logos/desktop-logo.png" class="desktop-logo ht-40" alt="logo"/>
+                                    <a href="/home" class="header-logo"><img src="../assets/images/logo.png" class="desktop-logo ht-40" alt="logo"/>
                                         <img src="../assets/images/brand-logos/desktop-white.png" class="desktop-white ht-40" alt="logo"/>
                                     </a>
                                 </div>

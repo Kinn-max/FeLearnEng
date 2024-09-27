@@ -124,5 +124,21 @@ export async function getProductById(id) {
     }
     return null;
 }
+export async function getRanDomProduct() {
+    const link = `http://localhost:8080/api/product/random`;
+
+    try {
+        const response = await fetch(link);
+        if(response.ok){
+            const data = await response.json();
+            return data;  
+        } else {
+            console.error('Failed to fetch data:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error(error); 
+    }
+    return null;
+}
 
 

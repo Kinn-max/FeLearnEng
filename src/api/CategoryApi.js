@@ -47,8 +47,8 @@ export async function postCategory(categoryData) {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            return data;
+            ShowNotification("success", "Thành Công");
+            return true;
         } else {
             const errorText = await response.json();
             return { message: errorText };

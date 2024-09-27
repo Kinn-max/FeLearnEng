@@ -3,6 +3,7 @@ import React from 'react'
 import ItemParagraph from '../../components/web/items/ItemParagraph'
 
 export default function ListParagraph() {
+
   return (
     <div class="card custom-card">
         <div class="card-header justify-content-between">

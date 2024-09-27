@@ -10,8 +10,7 @@ export default function AboutUs() {
                         <div class="col-lg-8 col-md-8 col-sm-12 text-center">
                             <h1 class="mb-3 fw-semibold fs-46">Xin chào! Đây là <span class="text-primary fs-56">Kinn.</span></h1>
                             <p class="leading-normal lead-1">Sứ mệnh của chúng tôi sẽ giúp bạn chinh phục được English.</p>
-                            <p class="leading-normal  fs-16">There are many variations of passages of Lorem Ipsum available, but the majority have suffered  by injected humour, or randomised words which don't look even slightly believable.
-                                If you are going to use a passage of Lorem Ipsum you are going to use a passage of Lorem Ipsum</p>
+                            <p class="leading-normal  fs-16">Với phương châm English Center for Everyone, trung tâm ECE hướng tới việc tổ chức các lớp học Tiếng Anh phù hợp với tất cả mọi người bằng nhiều khóa học khác nhau, ở các độ tuổi và mục tiêu học tập khác nhau.</p>
                         </div>
                     </div>
 
@@ -23,18 +22,18 @@ export default function AboutUs() {
                             <div class="card mt-7">
                                 <div class="card-body p-0 p-lg-5 text-dark">
                                     <div class="statistics-info p-4">
-                                        <div class="row">
+                                        <div class="row text-start">
                                             <div class="col-xl-6">
                                                 <div class="">
-                                                    <h2 class="fw-bold mb-4 text-dark">We Help to <span class="text-primary">Build</span> Your Dream Project.</h2>
-                                                    <h5 class="leading-normal fw-normal mb-4 text-dark">majority have suffered alteration in some form, by injected humour</h5>
-                                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered by injected humour, or randomised words which don't look even slightly believable.</p>
-                                                    <p>All the Lorem Ipsum generators on the Internet tend to repeat Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                                                    <h2 class="fw-bold mb-4 text-dark">START TO SUCCESS</h2>
+                                                    <h5 class="leading-normal fw-normal mb-4 text-dark">Giới thiệu chung</h5>
+                                                    <p>Trung tâm Anh ngữ ECE hoạt động từ năm 2009 với phương châm English Center for Everyone, trung tâm hướng tới việc tổ chức các lớp học tiếng Anh phù hợp với tất cả mọi người, từ các bạn học sinh tiểu học đến các bạn học sinh cấp 3 và người đi làm.</p>
+                                                    <p>Về thành tích thi các chứng chỉ chuẩn hóa Quốc tế, Trung tâm đã đào tạo được hàng nghìn học sinh trong suốt 11 năm hoạt động, trong đó có hàng trăm rất nhiều học viên đạt từ 7.0 – 8.5 / 9.0 IELTS, 100 – 150 / 120 TOEFL hay 1400 – 1550 / 1600 SAT (Format mới).</p>
                                                 </div>
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="text-center">
-                                                    <img src="../assets/images/img-banner-2.jpeg" alt="" class="w-100"/>
+                                                    <img src="https://ece.edu.vn/wp-content/uploads/2024/05/Frame1000009011-1.jpg" alt="" class="w-100"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,77 +103,7 @@ export default function AboutUs() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card p-3">
-                                <div class="card-body">
-                                    <div class="mb-3 text-center about-team">
-                                        <img class="rounded-circle avatar avatar-xl" src="../assets/images/faces/1.jpg" alt="image"/>
-                                    </div>
-                                    <div class="fs-16 text-center fw-semibold">
-                                        Rosen Berg
-                                    </div>
-                                    <div class="fs-14 text-center text-muted mb-3">
-                                        Chief Manager
-                                    </div>
-                                    <div class="text-center fs-14 mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam similique provident !</div>
-                                    <p class="text-center mb-0"><i class="fe fe-facebook text-primary me-3"></i><i class="fe fe-instagram text-success me-3"></i><i class="fe fe-globe text-info"></i></p>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card p-3">
-                                <div class="card-body">
-                                    <div class="mb-3 text-center about-team">
-                                        <img class="rounded-circle avatar avatar-xl" src="../assets/images/faces/2.jpg" alt="image"/>
-                                    </div>
-                                    <div class="fs-16 text-center fw-semibold">
-                                        Mclaren mcannen
-                                    </div>
-                                    <div class="fs-14 text-center text-muted mb-3">
-                                        Sales Manager
-                                    </div>
-                                    <div class="text-center fs-14 mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam similique provident !</div>
-                                    <p class="text-center mb-0"><i class="fe fe-facebook text-primary me-3"></i><i class="fe fe-instagram text-success me-3"></i><i class="fe fe-globe text-info"></i></p>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card p-3">
-                                <div class="card-body">
-                                    <div class="mb-3 text-center about-team">
-                                        <img class="rounded-circle avatar avatar-xl" src="../assets/images/faces/3.jpg" alt="image"/>
-                                    </div>
-                                    <div class="fs-16 text-center fw-semibold">
-                                        Shimpa Craig
-                                    </div>
-                                    <div class="fs-14 text-center text-muted mb-3">
-                                        Author &amp; writer
-                                    </div>
-                                    <div class="text-center fs-14 mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam similique provident !</div>
-                                    <p class="text-center mb-0"><i class="fe fe-facebook text-primary me-3"></i><i class="fe fe-instagram text-success me-3"></i><i class="fe fe-globe text-info"></i></p>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                            <div class="card p-3">
-                                <div class="card-body">
-                                    <div class="mb-3 text-center about-team">
-                                        <img class="rounded-circle avatar avatar-xl" src="../assets/images/faces/4.jpg" alt="image"/>
-                                    </div>
-                                    <div class="fs-16 text-center fw-semibold">
-                                        Limo Peter
-                                    </div>
-                                    <div class="fs-14 text-center text-muted mb-3">
-                                        Operations Head
-                                    </div>
-                                    <div class="text-center fs-14 mb-3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam similique provident !</div>
-                                    <p class="text-center mb-0"><i class="fe fe-facebook text-primary me-3"></i><i class="fe fe-instagram text-success me-3"></i><i class="fe fe-globe text-info"></i></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>        
+                    </div>       
       </div>
     </div>
   )

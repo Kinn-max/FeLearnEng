@@ -5,7 +5,6 @@ import { getAllItemOfCategory, getAllItemOfCategoryAndStatus } from "../../api/C
 function ListVocabulary(){
     const [listCategory, setListCategory] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [listVocabulary, setListVocabulary] = useState({}); 
     useEffect(() => {
         const fetchCategories = async () => {
             setLoading(true);

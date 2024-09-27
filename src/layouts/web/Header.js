@@ -84,7 +84,7 @@ const Header = () => {
                               item.type === "PRODUCT" ? "/book/detail/" + item.id :
                               item.type === "VOCABULARY" ? "/study/learn/" + item.id :
                               item.type === "EXAM" ? "/study/exam/" + item.id :
-                              item.type === "GRAMMAR" ? "#" :
+                              item.type === "GRAMMAR" ? "/blog/"+item.id :
                               "#"  
                             }
                             onClick={handleInput}

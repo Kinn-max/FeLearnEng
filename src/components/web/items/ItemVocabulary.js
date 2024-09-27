@@ -10,10 +10,10 @@ export default function ItemVocabulary({vocabulary}) {
                     <h6 class="card-title fw-semibold">{vocabulary.name}</h6>
                     <p class="card-text">{vocabulary.description}</p>
                     <div class="btn-list d-flex justify-content-center">
-                        <Link to={"/study/learn/"+vocabulary.id}>
+                        <Link to={"/study-learn/"+vocabulary.id}>
                             <button  class="btn btn-primary">Learning</button>
                          </Link>
-                         <Link to={"/study/practice/"+vocabulary.id}>
+                         <Link to={"/study-practice/"+vocabulary.id}>
                             <button type="button" class="btn btn-success btn-wave waves-effect waves-light">Practice</button>
                          </Link>
                     </div>

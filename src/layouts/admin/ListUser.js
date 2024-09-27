@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deleteUser, getAllUser, getItemUserSearch, statusUser } from '../../api/UserApi';
+import { deleteUser, getAllUser, getItemUserSearch, setRoleOfUser, statusUser } from '../../api/UserApi';
 import ShowNotification from '../../Utils/Notification';
 
 export default function ListUser() {
@@ -62,7 +62,16 @@ export default function ListUser() {
             setListUser(data);
         }
     };
-
+    const handleAccessControl= async(role,id)=>{
+        try {
+            await setRoleOfUser(role,id)
+            ShowNotification("success", "Thành công","Cấp quyền thành công");
+            setReload(true)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     return (
         <>
             {listUser.length > 0 ? (
@@ -145,20 +154,23 @@ export default function ListUser() {
                                                         >
                                                             <i className="las la-trash"></i>
                                                         </button>
-                                                        <div className="btn btn-sm btn-success">
-                                                            <button 
-                                                                type="button"   
-                                                                className="btn btn-success p-0 m-0 dropdown-toggle dropdown-toggle-split" 
-                                                                data-bs-toggle="dropdown" 
-                                                                aria-expanded="false"
-                                                            >
-                                                                <span className="visually-hidden"></span>
-                                                            </button>
-                                                            <ul className="dropdown-menu" style={{ width: '50px' }}> 
-                                                                <li><button className="dropdown-item bg-success-transparent">USER</button></li>
-                                                                <li><button className="dropdown-item">STAFF</button></li>
-                                                            </ul>
-                                                        </div>
+                                                            <div class="btn btn-sm btn-success">
+                                                                <button type="button" class="btn btn-success p-0 m-0 dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="fmntw7">
+                                                                    <span class="visually-hidden"></span>
+                                                                </button>
+                                                                <ul className="dropdown-menu p-0">
+                                                                    <li>
+                                                                        <button className="dropdown-item bg-danger-transparent" 
+                                                                            onClick={() => handleAccessControl(3, item.id)}>
+                                                                            Nhân viên
+                                                                        </button>
+                                                                        <button className="dropdown-item bg-success-transparent" 
+                                                                            onClick={() => handleAccessControl(2, item.id)}>
+                                                                            Khách hàng
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                     </td>
                                                 </tr>
                                             ))}

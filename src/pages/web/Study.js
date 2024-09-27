@@ -8,7 +8,6 @@ export default function Study() {
   return (
     <div className='container'>
         <ListVocabulary/>
-        <ListParagraph/>
         <ListExam/>
     </div>
   )
