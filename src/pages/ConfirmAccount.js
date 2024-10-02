@@ -1,6 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { activationAccount } from '../api/UserApi';
 
 export default function ConfirmAccount() {
+    const {id} = useParams();
+    const [code,setCode] = useState(null)
+    
+    
+    const handleSubmit = async (e)=>{
+        try {
+            if(code){
+               const response =  await activationAccount(id,code)
+               if(response){
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000); 
+               }
+            }
+        } catch (error) {
+            
+        }
+    }
   return (
     <div class="text-start container-fluid custom-page">
     <div class="row bg-white">
@@ -27,12 +47,12 @@ export default function ConfirmAccount() {
                                     <div class="main-signup-header">
                                         <h3>Confirm Account!</h3>
                                         <h6 class="fw-medium mb-4 fs-17">Please enter the code from the email you just registered.</h6>
-                                        <form>
-                                            <div class="form-group mb-3">
-                                                <label class="form-label">Email</label> <input class="form-control" placeholder="Enter your email" type="text"/>
-                                            </div>
-                                            <a href="index.html" class="btn btn-primary btn-block w-100">Send</a>
-                                        </form>
+                                        <label class="form-label">Email</label> <input class="form-control" placeholder="Enter your email" type="number"
+                                                    value={code}
+                                                    onChange={(e)=>setCode(e.target.value)}
+                                                />
+                                            <button  class="btn btn-primary btn-block w-100"
+                                                onClick={handleSubmit}>Send</button>
                                         <div class="main-signin-footer mt-3">
                                             <p>Forget it, <a href="forgot.html"> Send me back</a> to the sign in screen.</p>
                                         </div>

@@ -41,7 +41,7 @@ function Content() {
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isRegisterRoute = location.pathname === '/register';
   const isLoginRoute = location.pathname === '/login';
-  const isActivateRoute = location.pathname === '/activate';
+  const isActivateRoute = location.pathname.startsWith('/activate/');
 
   return (
     <>
@@ -53,7 +53,7 @@ function Content() {
         <Route path="/study" element={<Study />} />
         <Route path="/book" element={<Course />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/activate" element={<ConfirmAccount />} />
+        <Route path="/activate/:id" element={<ConfirmAccount />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/check-out" element={<CheckOut />} />
         <Route path="/profile" element={<Profile />} />

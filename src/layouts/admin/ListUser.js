@@ -74,7 +74,6 @@ export default function ListUser() {
     
     return (
         <>
-            {listUser.length > 0 ? (
                 <div className="card custom-card">
                     <div className="card-header px-5 pt-5 pb-3 justify-content-between">
                         <div className="card-title">
@@ -89,12 +88,13 @@ export default function ListUser() {
                                         placeholder="Tìm kiếm theo tên hoặc email"
                                         value={nameSearch}
                                         onChange={(e) => handleSearchUser(e.target.value)}
-                                    />
+                                        />
                                     <button className="btn btn-primary" type="button">Tìm kiếm</button>
                                 </div>
                             </div>
                         </div>
                     </div>     
+           {listUser.length > 0 ? (
                     <div className="card-body">
                         <div className="row">
                             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12 grid-margin">
@@ -200,10 +200,10 @@ export default function ListUser() {
                             </nav>
                         </div>
                     </div>
-                </div>
             ) : (
                 <div>Chưa có tài khoản nào được đăng ký!</div> 
             )}
+                </div>
         </>
     );
 }

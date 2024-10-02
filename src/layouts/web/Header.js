@@ -81,10 +81,10 @@ const Header = () => {
                         <Link
                             key={index}
                             to={
-                              item.type === "PRODUCT" ? "/book/detail/" + item.id :
-                              item.type === "VOCABULARY" ? "/study/learn/" + item.id :
-                              item.type === "EXAM" ? "/study/exam/" + item.id :
-                              item.type === "GRAMMAR" ? "/blog/"+item.id :
+                              item.type === "PRODUCT" ? "/book-detail/" + item.id :
+                              item.type === "VOCABULARY" ? "/study-learn/" + item.id :
+                              item.type === "EXAM" ? "/study-exam/" + item.id :
+                              item.type === "GRAMMAR" ? "/grammar/"+item.id :
                               "#"  
                             }
                             onClick={handleInput}

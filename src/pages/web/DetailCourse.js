@@ -125,7 +125,6 @@ export default function DetailCourse() {
                                              </div>
                                          </div>
                                         <div className="action mt-4">
-                                            <a href="wish-list.html" className="add-to-cart btn btn-danger my-1 me-1">Mua ngay</a>
                                             <button onClick={handleAddCart} className="add-to-cart btn btn-primary">Thêm vào giỏ hàng</button>
                                         </div>
                                     </div>

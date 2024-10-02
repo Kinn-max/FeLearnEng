@@ -212,7 +212,7 @@ export default function Grammar() {
                                         />
                                     </td>
                                     <td>{item.name}</td>
-                                    <td>{item.createdDate}</td>
+                                    <td>{item.createdAt}</td>
                                     <td>{ item.quantity}</td>
                                     <td>{item.description}</td>
                                     <td className='text-start'>

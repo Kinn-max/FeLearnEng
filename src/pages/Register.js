@@ -21,9 +21,9 @@ export default function Register() {
         }
         try {
             console.log(data)
-            const response = await createUser(data,navigate)
-            if(response){
-                navigate('/activate')
+            const responseId = await createUser(data,navigate)
+            if(responseId){
+                navigate(`/activate/${responseId}`)
             }
           } catch (error) {
             console.error("Error submitting the form", error);

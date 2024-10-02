@@ -12,9 +12,10 @@ export async function createUser(data) {
         });
 
         if (response.ok) {
-            return true;
+            const data = await response.json();
+            return data.id;
         } else {
-            const errorText = await response.json();
+            const errorText = await response.text();
             ShowNotification("error", "Thất bại", errorText);
         }
     } catch (error) {
@@ -245,6 +246,31 @@ export async function setRoleOfUser(role,id) {
         }
     } catch (error) {
         console.error('Error:', error);
+    }
+    return null;
+}
+export async function activationAccount(id,code) {
+    const link = `http://localhost:8080/api/user/activation/${id}/${code}`;
+
+    try {
+        const response = await fetch(link, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify("OK"),
+        });
+
+        if (response.ok) {
+            ShowNotification("success", "Thành công",  "Login account successful!" ); 
+            return true;
+        } else {
+            const errorText = await response.json();
+            ShowNotification("error", "Thất bại",  errorText ); 
+        }
+    } catch (error) {
+        ShowNotification("error", "Thất bại",  error ); 
+        console.log(error)
     }
     return null;
 }
