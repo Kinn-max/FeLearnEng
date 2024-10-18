@@ -9,7 +9,7 @@ export default function Profile() {
     const [ward, setWard] = useState("");
     const [fullName, setFullName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-
+    const token = localStorage.getItem('jwtToken');
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -50,7 +50,8 @@ export default function Profile() {
     };
 
     return (
-        <div className='container'>
+        <>
+            {token?(        <div className='container'>
             <div className="row text-start">
                 <div className="col-xl-4 col-lg-5">
                     <div className="card mb-4">
@@ -189,5 +190,10 @@ export default function Profile() {
                 </div>
             </div>
         </div>
+        ):(
+            <div>Bạn chưa đăng nhập</div>
+            )}
+        </>
+
     );
 }
