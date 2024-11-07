@@ -117,7 +117,7 @@ export default function ListUser() {
                                                 <tr key={item.id}>
                                                     <td>{index + 1}</td>
                                                     <td>
-                                                        <img alt="avatar" className="rounded-circle avatar-md avatar" src="../assets/images/faces/1.jpg" />
+                                                        <img alt="avatar" className="rounded-circle avatar-md avatar"  src={item.image?`data:image/jpeg;base64,${item.image}`:`https://tse2.mm.bing.net/th?id=OIP.sbRjMD2zaP12rWg1bR1PDAHaHa&pid=Api&P=0&h=180`}  />
                                                     </td>
                                                     <td>{item.fullName}</td>
                                                     <td>{item.createdAt}</td>

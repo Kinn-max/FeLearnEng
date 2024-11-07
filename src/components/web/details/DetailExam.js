@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function DetailExam({ listQuestion, selectedQuestion, onNextQuestion, onPrevQuestion,setListAnswer }) {
     const [swiperInstance, setSwiperInstance] = useState(null);
-
+    const [timeElapsed, setTimeElapsed] = useState(0);
     const handleNavigation = useCallback((direction) => {
         if (swiperInstance) {
             if (direction === 'prev') {
@@ -30,13 +30,25 @@ export default function DetailExam({ listQuestion, selectedQuestion, onNextQuest
         }));
     };
     
+     useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeElapsed(prevTime => prevTime + 1);
+        }, 1000);
 
+        return () => clearInterval(timer);
+    }, []);
+
+    const formatTime = () => {
+        const minutes = Math.floor(timeElapsed / 60);
+        const seconds = timeElapsed % 60;
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
     return (
         <div className="card custom-card">
             <div className="card-header justify-content-between">
                 <div className="card-title">Tổng số câu hỏi: {listQuestion.length}</div>
                 <div className="prism-toggle">
-                    <button className="btn btn-primary-light">Thời gian làm bài</button>
+                    <button className="btn btn-primary-light">Thời gian làm bài: {formatTime()}</button>
                 </div>
             </div>
             <div className="card-body">

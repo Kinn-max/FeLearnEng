@@ -18,7 +18,6 @@ const Header = () => {
   useEffect(() => {
     if (token && typeof token === 'string') {
       const userData = jwtDecode(token);
-      console.log(userData)
       if (userData && userData.fullName) {
         setFullName(userData.fullName); 
       }
@@ -71,7 +70,7 @@ const Header = () => {
             <input className="form-control me-2" type="search" placeholder="Search" 
                 value={inputValue}
                 onChange={handleChange} aria-label="Search" />
-            <button className="btn btn-primary w-50" type="submit">Tìm kiếm</button>
+            <button className="btn btn-primary w-50" onClick={handleChange}>Tìm kiếm</button>
             {isOpen && data && (
               <div className="list-group py-2 position-absolute w-100" style={{ top: '100%', zIndex: 5000 }}>
                 <div className="card bg-body">

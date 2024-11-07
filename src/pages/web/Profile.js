@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getByToken, updateUser } from '../../api/UserApi';
 import ShowNotification from '../../Utils/Notification';
+import Empty from '../../Utils/Empty';
 
 export default function Profile() {
     const [user, setUser] = useState({});
@@ -51,7 +52,7 @@ export default function Profile() {
 
     return (
         <>
-            {token?(        <div className='container'>
+            {token?(<div className='container'>
             <div className="row text-start">
                 <div className="col-xl-4 col-lg-5">
                     <div className="card mb-4">
@@ -191,7 +192,13 @@ export default function Profile() {
             </div>
         </div>
         ):(
-            <div>Bạn chưa đăng nhập</div>
+            <div className='container'>
+                <div className='card custom-card'>
+                    <div className='row d-flex justify-content-center'>
+                        <Empty/>
+                    </div>
+                </div>
+            </div>
             )}
         </>
 

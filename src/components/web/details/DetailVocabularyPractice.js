@@ -72,6 +72,7 @@ const DetailVocabularyPractice = () => {
       playAudio('/assets/sound/pew-pew-vo-tay.mp3');
       setTimeout(() => {
         swiperInstance?.slideNext();
+        setUserAnswer('');
       }, 1000);
     } else {
       playAudio('/assets/sound/thay-huan-oi-gioi-oi.mp3');

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {  loginApi } from '../api/UserApi'
 import ShowNotification from '../Utils/Notification'
 import { jwtDecode } from 'jwt-decode'
-
+import { GoogleLogin } from '@react-oauth/google';
 
 export default function Login() {
     const [passWord,setPassWord] = useState("")
@@ -93,6 +93,14 @@ export default function Login() {
                                                     <button class="btn btn-info btn-block w-100"><i class="fab fa-twitter me-2"></i> Signup with
                                                         Twitter</button>
                                                 </div>
+                                                <GoogleLogin
+                                                    onSuccess={credentialResponse => {
+                                                        console.log(credentialResponse);
+                                                    }}
+                                                    onError={() => {
+                                                        console.log('Login Failed');
+                                                    }}
+                                                    />
                                             </div>
                                         </form>
                                         <div class="main-signin-footer mt-5">

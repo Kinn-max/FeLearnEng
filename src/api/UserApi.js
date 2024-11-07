@@ -40,11 +40,10 @@ export async function loginApi(data) {
             ShowNotification("success", "Thành công",  "Login account successful!" ); 
             const data = await response.json();
             const token = data.token;
-            // save localStorage 
             localStorage.setItem('jwtToken', token);
             return true;
         } else {
-            const errorText = await response.json();
+            const errorText = await response.text();
             ShowNotification("error", "Thất bại",  errorText ); 
             console.log(errorText)
         }
@@ -265,7 +264,7 @@ export async function activationAccount(id,code) {
             ShowNotification("success", "Thành công",  "Login account successful!" ); 
             return true;
         } else {
-            const errorText = await response.json();
+            const errorText = await response.text();
             ShowNotification("error", "Thất bại",  errorText ); 
         }
     } catch (error) {

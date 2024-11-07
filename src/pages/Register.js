@@ -5,7 +5,7 @@ import ShowNotification from '../Utils/Notification'
 
 export default function Register() {
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(false);
     const [passWord,setPassWord] = useState("")
     const [confirmPassWord,setConfirmPassWord] = useState("")
     const [email,setEmail] = useState("")
@@ -19,15 +19,20 @@ export default function Register() {
             confirmPassword:confirmPassWord,
             role:2
         }
+        setLoading(true);
         try {
             console.log(data)
             const responseId = await createUser(data,navigate)
             if(responseId){
-                navigate(`/activate/${responseId}`)
+                setLoading(false);
+                setTimeout(() => {
+                    window.location.href =`/activate/${responseId}`;
+                }, 2000); 
             }
           } catch (error) {
             console.error("Error submitting the form", error);
           }
+            
     }
   return (
     <div class="container-fluid custom-page">
@@ -95,6 +100,9 @@ export default function Register() {
                                                     </div>
                                                 </div>
                                             </form>
+                                            {loading && (
+                                                ShowNotification("warning", "Đang đăng ký", "Vui lòng chờ!")
+                                            )}
                                             <div class="main-signin-footer mt-5">
                                                 <p>Already have an account? <Link to={"/login"}>Sign In</Link></p>
                                             </div>

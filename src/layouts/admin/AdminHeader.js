@@ -16,10 +16,6 @@ export default function AdminHeader() {
                             <Link class="nav-link" aria-current="page" to={"#"}>Quản lý website của bạn</Link>
                         </li>
                     </ul>
-                    <form class="d-flex px-5" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-primary w-50 " type="submit">Tìm kiếm</button>
-                    </form>
                     <div class="btn-list fs-3 d-flex align-items-center">
                            <span className='fs-6'> Xin chào, Admin</span>
                              <i class="bx bx-user px-2"></i>   

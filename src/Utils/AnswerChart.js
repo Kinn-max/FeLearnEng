@@ -9,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const AnswerChart = () => {
   const location = useLocation();
-  const { answers, id, listQuestion } = location.state || {};  
+  const { answers, id, listQuestion ,timeElapsed} = location.state || {};  
   if (!answers || !id || !listQuestion) {
     return <div className='row d-flex justify-content-center'><Empty/></div>;
   }
@@ -52,6 +52,11 @@ const AnswerChart = () => {
     },
   };
 
+  const formatTime = () => {
+    const minutes = Math.floor(timeElapsed / 60);
+    const seconds = timeElapsed % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
   return (
     <div className='container'>
       <div className='row text-start'>
@@ -60,7 +65,8 @@ const AnswerChart = () => {
             <div className="card-header justify-content-between">
               <div className="card-title">Tổng số câu hỏi: {listQuestion.length}</div>
               <div className="prism-toggle">
-                <button className="btn btn-primary-light">Correct: {correct}/{listQuestion.length}</button>
+                <button className="btn block-hover btn-primary-light">Correct: {correct}/{listQuestion.length}</button>
+                <button className="btn block-hover border-start mx-1 btn-primary-light">Thời gian làm bài: {formatTime()}</button>
               </div>
             </div>
             <div className="card-body">

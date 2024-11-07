@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { activationAccount } from '../api/UserApi';
+import ShowNotification from '../Utils/Notification';
 
 export default function ConfirmAccount() {
     const {id} = useParams();
@@ -12,8 +13,9 @@ export default function ConfirmAccount() {
             if(code){
                const response =  await activationAccount(id,code)
                if(response){
+                ShowNotification("success", "Thành công", "Vui lòng đăng nhập để vào")
                 setTimeout(() => {
-                    window.location.href = "/";
+                    window.location.href = "/login";
                 }, 2000); 
                }
             }
@@ -27,7 +29,7 @@ export default function ConfirmAccount() {
         <div class="col-md-6 col-lg-6 col-xl-7 d-none d-md-flex bg-primary-transparent-3">
             <div class="row w-100 mx-auto text-center">
                 <div class="col-md-12 col-lg-12 col-xl-12 my-auto mx-auto w-100">
-                    <img src="../assets/images/media/pngs/3.png" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo"/>
+                      <img src="https://images.pexels.com/photos/16890650/pexels-photo-16890650/free-photo-of-colorful-texts-on-directional-boards.jpeg?auto=compress&cs=tinysrgb&w=600" class="my-auto ht-xl-80p wd-md-100p wd-xl-80p mx-auto" alt="logo"/>
                 </div>
             </div>
         </div>
@@ -39,7 +41,7 @@ export default function ConfirmAccount() {
                         <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
                             <div class="card-sigin">
                                 <div class="mb-5 d-flex">
-                                    <a href="index.html" class="header-logo"><img src="../assets/images/brand-logos/desktop-logo.png" class="desktop-logo ht-40" alt="logo"/>
+                                    <a href="/home" class="header-logo"><img src="../assets/images/logo.png" class="desktop-logo ht-40" alt="logo"/>
                                         <img src="../assets/images/brand-logos/desktop-white.png" class="desktop-white ht-40" alt="logo"/>
                                     </a>
                                 </div>
@@ -51,10 +53,10 @@ export default function ConfirmAccount() {
                                                     value={code}
                                                     onChange={(e)=>setCode(e.target.value)}
                                                 />
-                                            <button  class="btn btn-primary btn-block w-100"
+                                            <button  class="btn btn-primary btn-block w-100 my-3"
                                                 onClick={handleSubmit}>Send</button>
                                         <div class="main-signin-footer mt-3">
-                                            <p>Forget it, <a href="forgot.html"> Send me back</a> to the sign in screen.</p>
+                                            <p>Forget it, <a href="#"> Send me back</a> to the sign in screen.</p>
                                         </div>
                                     </div>
                                 </div>

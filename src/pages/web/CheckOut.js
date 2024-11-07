@@ -78,6 +78,7 @@ export default function CheckOut() {
         if (idProvince) {
             const fetchDistricts = async () => {
                 const data = await getAllDistrict(idProvince);
+                console.log(data)
                 setDistrict(data);
             };
             fetchDistricts();
@@ -119,7 +120,7 @@ export default function CheckOut() {
                         totalMoney: total,
                         shippingMethod:delivery
                     };
-
+                    console.log(data)
                     if (!payment || payment.length === 0) {
                         ShowNotification('warning', 'Thiếu thông tin', 'Vui lòng chọn phương thức thanh toán.');
                     } else {
@@ -154,6 +155,29 @@ export default function CheckOut() {
             setTotal(totalValue);
         }
     }, [itemInCart]); 
+    const handleDistrictChange = (e) => {
+        const selectedDistrictId = e.target.value;
+        const selectedDistrict = district.find(item => item.id === selectedDistrictId);
+        
+        setIdDistrict(selectedDistrictId);
+        setNameDistrict(selectedDistrict ? selectedDistrict.name : ''); 
+    };
+    const handleProvinceChange = (e) => {
+        const selectedDistrictId = e.target.value;
+        const selectedDistrict = province.find(item => item.id === selectedDistrictId);
+        
+        setIdProvince(selectedDistrictId);
+        setNameProvince(selectedDistrict ? selectedDistrict.name : ''); 
+    };
+    const handleWardChange = (e) => {
+        const selectedDistrictId = e.target.value;
+        const selectedDistrict = ward.find(item => item.id === selectedDistrictId);
+        
+        setIdWard(selectedDistrictId);
+        setNameWard(selectedDistrict ? selectedDistrict.name : ''); 
+    };
+    
+
     return (
         <div>
             {itemInCart.length > 0 ? (
@@ -217,7 +241,7 @@ export default function CheckOut() {
                                                                                     <label class="form-label" for="address">Tỉnh/Thành phố</label>
                                                                                     <select class="form-select" aria-label="Default select example"
                                                                                         value={idProvince}
-                                                                                        onChange={(e)=>setIdProvince(e.target.value) }
+                                                                                        onChange={handleProvinceChange}
                                                                                     >
                                                                                         <option value="" checked>{nameProvince || "--Chọn--"}</option>
                                                                                         {province.map((item,index)=>(
@@ -229,7 +253,8 @@ export default function CheckOut() {
                                                                                     <label class="form-label" for="address">Quận/Huyện</label>
                                                                                     <select class="form-select" aria-label="Default select example"
                                                                                         value={idDistrict}
-                                                                                        onChange={(e)=>setIdDistrict(e.target.value)}
+                                                                                        onChange={handleDistrictChange}
+                                                                                       
                                                                                     >
                                                                                             <option value="" checked>{nameDistrict || "--Chọn--"}</option>
                                                                                         {district.map((item,index)=>(
@@ -241,7 +266,7 @@ export default function CheckOut() {
                                                                                     <label class="form-label" for="address">Xã/Phường</label>
                                                                                     <select class="form-select" aria-label="Default select example"
                                                                                         value={idWard}
-                                                                                        onChange={(e)=>setIdWard(e.target.value)}
+                                                                                        onChange={handleWardChange}
                                                                                     >
                                                                                         <option value="" checked>{nameWard || "--Chọn--"}</option>
                                                                                         {ward.map((item,index)=>(

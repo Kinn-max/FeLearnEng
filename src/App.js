@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Header from './layouts/web/Header';
 import Footer from './layouts/web/Footer';
 import CommonHome from './pages/web/CommonHome';
@@ -52,7 +53,11 @@ function Content() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/study" element={<Study />} />
         <Route path="/book" element={<Course />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={
+          <GoogleOAuthProvider clientId="305246865338-20svkri4q1i7v4v0q9nt0udj523oafdh.apps.googleusercontent.com">
+            <Login />
+          </GoogleOAuthProvider>
+        } />
         <Route path="/activate/:id" element={<ConfirmAccount />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/check-out" element={<CheckOut />} />

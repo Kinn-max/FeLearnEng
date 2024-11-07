@@ -5,15 +5,23 @@ import { getProductById, getRanDomProduct } from '../../api/ProductApi';
 import Empty from '../../Utils/Empty';
 import ShowNotification from '../../Utils/Notification';
 import { addCartApi } from '../../api/AddCartApi';
+import { getAllCommentById, postComment } from '../../api/ProductRatingApi';
+import StarRating from '../../Utils/StarRating';
+import StarRatings from 'react-star-ratings';
 
 export default function DetailCourse() {
     const [loading, setLoading] = useState(false);
+    const [reload, setReload] = useState(false);
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState(null);
     const [listProduct,setListProduct] =useState([]);
+    const [listComment,setListComment] =useState([]);
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState("");
+    const [visibleComments, setVisibleComments] = useState(3);
     const { id } = useParams();
-
+    const token = localStorage.getItem('jwtToken');
     useEffect(() => {
         const fetchProduct = async () => {
             setLoading(true);
@@ -32,7 +40,19 @@ export default function DetailCourse() {
 
         fetchProduct();
     }, [id]); 
-
+    useEffect(() => {
+        const fetchRating = async () => {
+            try {
+                const data = await getAllCommentById(id);
+                if (data) {
+                    setListComment(data) 
+                }
+            } catch (error) {
+                console.log(error);
+            } 
+        };
+        fetchRating();
+    }, [id,reload]); 
     const handlePlus = () => {
         setQuantity(prevQuantity => prevQuantity + 1);
     };
@@ -47,7 +67,6 @@ export default function DetailCourse() {
             ShowNotification("error", "Lỗi", "Thông tin sản phẩm không hợp lệ");
             return;
         }
-
         const data = {
             idProduct: id,
             price: price,
@@ -69,7 +88,6 @@ export default function DetailCourse() {
             setLoading(true);
             try {
                 const data = await getRanDomProduct();
-                console.log(data)
                 if (data) {
                     setListProduct(data);
                 }
@@ -82,7 +100,34 @@ export default function DetailCourse() {
     if (loading) {
         return <div>Loading...</div>;
     }
-
+    const changeRating = (newRating) => {
+      setRating(newRating);
+    };
+    const hanleSubmit = async (e)=>{
+        e.preventDefault();
+        console.log(rating,review)
+        const data = {
+            rating: rating,
+            review: review
+        };
+        if(token == null) ShowNotification("error", "Lỗi", "Bạn cần đăng nhập trước!");
+        if(rating ==0 || review == "") {
+            ShowNotification("warning", "Thiếu dữ liệu", "Bạn chưa đánh giá sao hoặc bài viết");
+        }else{
+            try {
+                const response = await postComment(id,data);
+                setReload(prev => !prev)
+                setRating(0)
+                setReview("")
+            } catch (error) {
+                console.error('Error:', error);
+                ShowNotification("error", "Lỗi", "Đã có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
+            }
+        }
+    }
+    const handleShowMore = () => {
+        setVisibleComments(listComment.length); 
+    };
     return (
         <>
         {product ? ( 
@@ -96,21 +141,21 @@ export default function DetailCourse() {
                                         <div className="product-carousel  border br-5">
                                             <div id="Slider" className="carousel slide" data-bs-ride="false">
                                                 <div className="carousel-inner py-3">
-                                                    <div className="carousel-item active">
-                                                        <img src={`data:image/jpeg;base64,${product.image}`} alt="img" className="img-fluid mx-auto d-block" />
+                                                    <div className="carousel-item active" >
+                                                        <img src={`data:image/jpeg;base64,${product.image}`} alt="img" style={{width:"100%",height:"100%"}}  />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
-                                        <h5 className="product-title mb-1">{product.name}</h5>
-                                        <h6 className="price fs-14">Giá bán: 
-                                            <span className="h4 ms-2 d-inline-block text-danger">
+                                    <div className="details p-3 col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
+                                        <h5 className="product-title mb-1 text-capitalize fs-3">{product.name}</h5>
+                                        <h6 className="price fs-5">Giá bán: 
+                                            <span className="h4 ms-2 fs-1 d-inline-block text-danger">
                                                 {price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                             </span>
                                         </h6>
-                                        <p className="product-description">{product.description}</p>
+                                        <p className="product-description fs-5">{product.description}</p>
                                          <div className="col-xl-2">
                                             <div className="handle-counter input-group rounded flex-nowrap">
                                                 <button className="btn btn-icon btn-light input-group-text product-quantity-minus"
@@ -131,9 +176,79 @@ export default function DetailCourse() {
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title fs-5">Comments</h3>
+                                </div>
+                                <div class="card-body d-flex justify-content-between">
+                                    <div className='col-xl-4'>
+                                        <form onSubmit={hanleSubmit}>
+                                            <div class="mt-2">
+                                                <div className='d-flex py-3'>
+                                                <span className='px-3 pt-1'> Chọn sao đánh giá:</span>
+                                                    <StarRatings
+                                                        rating={rating}
+                                                        starRatedColor="yellow"     
+                                                        starHoverColor="orange"    
+                                                        changeRating={changeRating}
+                                                        numberOfStars={5}
+                                                        name="rating"
+                                                        starEmptyColor="gray"    
+                                                        starDimension="30px"  
+                                                    />
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <textarea class="form-control" value={review} onChange={(e)=>setReview(e.target.value)} rows="6" placeholder="Write Review"></textarea>
+                                                </div>
+                                                <button type='submit' class="btn btn-primary">Send Reply</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div className='col-xl-7 text-start border-start ps-5'>
+                                    {
+                                        listComment.slice(0, visibleComments).map((item, index) => (
+                                            <div className="d-sm-flex p-3 mt-1 border " style={{borderRadius: "15px"}} key={index}>
+                                                <div className="d-flex me-3">
+                                                    <a href="javascript:void(0);">
+                                                        <img className="media-object rounded-circle avatar" alt="64x64" src="../assets/images/faces/5.jpg" />
+                                                    </a>
+                                                </div>
+                                                <div className="media-body">
+                                                    <h6 className="mt-0 mb-1 font-weight-semibold">
+                                                        {item.fullName}
+                                                        <span className="fs-14 ms-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-original-title="verified">
+                                                            <i className="fe fe-check-circle text-success fs-12"></i>
+                                                        </span>
+                                                        <span className="fs-14 ms-2 d-inline-block"> 
+                                                            <StarRating rating={item.rating} /> 
+                                                        </span>
+                                                    </h6>
+                                                    <p className="font-13 mb-2 mt-2">
+                                                        {item.review}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                    <div className='d-flex justify-content-center'>
+                                        {visibleComments < listComment.length && (
+                                            <button onClick={handleShowMore}  type="button" class="mt-3 btn btn-link rounded-pill btn-wave waves-effect waves-light">Xem thêm</button>
+                                        )}
+                                    </div>
+                                    <div className='d-flex justify-content-center'>
+                                    {listComment.length === 0 && (
+                                            <span type="button" className="mt-3 ">
+                                                Chưa có bình luận nào cho cuốn sách này
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+    
+                                </div> 
+                        </div>
                     </div>
                 </div>
-                <h3 className='text-title'>KHÓA HỌC GỢI Ý</h3>
+                <h3 className='text-title'>Sách gợi ý cho bạn!</h3>
                 <div className="row related-products-ltr-l">
                     {listProduct.map((item,index)=>(
                           <OtherCourse key={index} item={item} />

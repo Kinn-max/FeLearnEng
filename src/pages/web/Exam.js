@@ -8,11 +8,11 @@ export default function Exam() {
     const [selectedQuestion, setSelectedQuestion] = useState(0);
     const [listQuestion, setListQuestion] = useState([])
     const [listAnswer, setListAnswer] = useState({});
+    const [startTime] = useState(Date.now());
     const {id} = useParams()
     const navigate = useNavigate();
     useEffect(() => {
         const fetchCategories = async () => {
-
             try {
                 const data = await getAllExamByCategoryByIdAndStatus(id);
                 if (data) {
@@ -34,6 +34,18 @@ export default function Exam() {
         if (selectedQuestion > 0) {
             setSelectedQuestion(prev => prev - 1);
         }
+    };
+    const handleSubmitExam = () => {
+        const timeElapsed = Math.floor((Date.now() - startTime) / 1000); 
+        
+        navigate('/study-result', {
+            state: {
+                answers: listAnswer,
+                id: id,
+                listQuestion: listQuestion,
+                timeElapsed: timeElapsed 
+            }
+        });
     };
   return (
     <div className='container'>
@@ -66,9 +78,7 @@ export default function Exam() {
                             ))}
                         </div>
                         <button
-                            onClick={() => navigate('/study-result', {
-                                state: { answers: listAnswer, id: id, listQuestion: listQuestion }
-                            })}
+                            onClick={handleSubmitExam}
                             className="btn btn-primary"
                             >
                             Nộp bài
